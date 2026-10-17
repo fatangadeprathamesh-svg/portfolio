@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="404 Page Not Found — The page you are looking for does not exist. Return to Prathamesh Fatangade's developer and quant trading portfolio.">
+  <title>404 Page Not Found | Prathamesh Fatangade</title>
+
+  <!-- Open Graph / Meta -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="404 Page Not Found | Prathamesh Fatangade">
+  <meta property="og:description" content="The page you requested could not be located. Return to the home portfolio.">
+  <meta property="og:image" content="assets/images/og-preview.svg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .error-page-wrap {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 30%, rgba(127, 1, 31, 0.18) 0%, rgba(8, 4, 6, 0.98) 75%);
+    }
+    .error-card {
+      max-width: 620px;
+      width: 100%;
+      background: rgba(18, 11, 14, 0.85);
+      border: 1px solid rgba(245, 235, 208, 0.18);
+      border-radius: 20px;
+      padding: 48px 36px;
+      text-align: center;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(127, 1, 31, 0.25);
+      position: relative;
+      z-index: 2;
+      transform-style: preserve-3d;
+      transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;
+    }
+    .error-code {
+      font-family: var(--font-display, 'Bebas Neue', sans-serif);
+      font-size: clamp(5.5rem, 14vw, 8.5rem);
+      line-height: 1;
+      color: #7F011F;
+      text-shadow: 0 0 35px rgba(127, 1, 31, 0.6), 2px 2px 0 #F5EBD0;
+      letter-spacing: 4px;
+      margin-bottom: 8px;
+    }
+    .error-title {
+      font-family: var(--font-display, 'Bebas Neue', sans-serif);
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      color: #F5EBD0;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+    .error-desc {
+      font-size: 0.95rem;
+      color: #D4C7B5;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+    .error-links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+    .error-quick-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 14px;
+      background: rgba(245, 235, 208, 0.05);
+      border: 1px solid rgba(245, 235, 208, 0.12);
+      border-radius: 8px;
+      color: #F5EBD0;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .error-quick-link:hover {
+      background: #7F011F;
+      color: #ffffff;
+      border-color: #7F011F;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body class="dark-theme">
+  <div class="error-page-wrap">
+    <div class="error-card" id="errorCard">
+      <div class="error-code">404</div>
+      <h1 class="error-title">COORDINATES NOT FOUND</h1>
+      <p class="error-desc">
+        The route you are navigating does not exist on this server. Whether it was moved, archived, or mis-typed, you can quickly jump back to verified portfolio sections below:
+      </p>
+
+      <div class="error-links-grid">
+        <a href="index.html#hero" class="error-quick-link"><i class="fas fa-home"></i> Home</a>
+        <a href="index.html#projects" class="error-quick-link"><i class="fas fa-laptop-code"></i> Projects</a>
+        <a href="index.html#research" class="error-quick-link"><i class="fas fa-book-open"></i> Research</a>
+        <a href="index.html#trading" class="error-quick-link"><i class="fas fa-chart-line"></i> Markets</a>
+        <a href="index.html#skills" class="error-quick-link"><i class="fas fa-cogs"></i> Skills</a>
+        <a href="index.html#contact" class="error-quick-link"><i class="fas fa-envelope"></i> Contact</a>
+      </div>
+
+      <div>
+        <a href="index.html" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px;">
+          <i class="fas fa-arrow-left"></i> Return to Homepage
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Subtle 3D tilt on 404 card
+    const card = document.getElementById('errorCard');
+    if (card && window.matchMedia('(hover: hover)').matches) {
+      window.addEventListener('mousemove', (e) => {
+        const x = (e.clientX / window.innerWidth) - 0.5;
+        const y = (e.clientY / window.innerHeight) - 0.5;
+        card.style.transform = `perspective(1000px) rotateX(${y * -14}deg) rotateY(${x * 14}deg)`;
+      });
+      window.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+      });
+    }
+  </script>
+</body>
+</html>

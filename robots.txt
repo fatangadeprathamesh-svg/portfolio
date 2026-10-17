@@ -1,0 +1,12 @@
+# robots.txt for Prathamesh Fatangade Portfolio
+# Allowed for all standard web crawlers
+
+User-agent: *
+Allow: /
+
+# Exclude non-public utility and test assets
+Disallow: /assets/research/*.docx
+Disallow: /assets/certificates/*.pdf
+
+# Sitemap location
+Sitemap: https://fatangadeprathamesh-svg.github.io/portfolio/sitemap.xml

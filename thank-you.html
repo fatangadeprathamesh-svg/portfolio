@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Thank you for reaching out to Prathamesh Fatangade. Your message has been received and you will receive a response shortly.">
+  <title>Message Received — Thank You | Prathamesh Fatangade</title>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Message Received | Prathamesh Fatangade">
+  <meta property="og:description" content="Thank you for contacting Prathamesh Fatangade.">
+  <meta property="og:image" content="assets/images/og-preview.svg">
+
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .thankyou-wrap {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 35%, rgba(127, 1, 31, 0.22) 0%, rgba(8, 4, 6, 0.98) 75%);
+    }
+    .thankyou-card {
+      max-width: 600px;
+      width: 100%;
+      background: rgba(18, 11, 14, 0.88);
+      border: 1px solid rgba(245, 235, 208, 0.18);
+      border-radius: 24px;
+      padding: 50px 38px;
+      text-align: center;
+      backdrop-filter: blur(24px);
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.85), 0 0 45px rgba(127, 1, 31, 0.3);
+      position: relative;
+      z-index: 2;
+      transform-style: preserve-3d;
+      transition: transform 0.25s ease-out;
+    }
+    .success-icon-wrap {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 24px;
+      border-radius: 50%;
+      background: rgba(127, 1, 31, 0.2);
+      border: 2px solid #7F011F;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      color: #F5EBD0;
+      box-shadow: 0 0 30px rgba(127, 1, 31, 0.4);
+      animation: pulseSuccess 2s infinite ease-in-out;
+    }
+    @keyframes pulseSuccess {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 25px rgba(127, 1, 31, 0.35); }
+      50% { transform: scale(1.06); box-shadow: 0 0 40px rgba(127, 1, 31, 0.6); }
+    }
+    .thankyou-title {
+      font-family: var(--font-display, 'Bebas Neue', sans-serif);
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      color: #F5EBD0;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+      line-height: 1.1;
+    }
+    .thankyou-text {
+      font-size: 1rem;
+      color: #D4C7B5;
+      line-height: 1.65;
+      margin-bottom: 28px;
+    }
+    .direct-reach-box {
+      background: rgba(245, 235, 208, 0.04);
+      border: 1px solid rgba(245, 235, 208, 0.1);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 30px;
+      font-size: 0.88rem;
+      color: #B8A998;
+    }
+    .direct-reach-box a {
+      color: #F5EBD0;
+      font-weight: 600;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body class="dark-theme">
+  <div class="thankyou-wrap">
+    <div class="thankyou-card" id="thankyouCard">
+      <div class="success-icon-wrap">
+        <i class="fas fa-check"></i>
+      </div>
+      <h1 class="thankyou-title">MESSAGE TRANSMITTED</h1>
+      <p class="thankyou-text">
+        Thank you for reaching out. Your communication has been dispatched to <strong style="color: #F5EBD0;">fatangadeprathamesh@gmail.com</strong>. I review technical inquiries, research discussions, and quantitative collaborations regularly and will respond promptly.
+      </p>
+
+      <div class="direct-reach-box">
+        <p><i class="fas fa-bolt" style="color: #7F011F; margin-right: 6px;"></i> Urgent inquiry? Connect directly via <a href="mailto:fatangadeprathamesh@gmail.com">fatangadeprathamesh@gmail.com</a> or inspect repositories on <a href="https://github.com/fatangadeprathamesh-svg" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
+      </div>
+
+      <div>
+        <a href="index.html" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px;">
+          <i class="fas fa-arrow-left"></i> Return to Portfolio
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 3D Tilt interaction
+    const card = document.getElementById('thankyouCard');
+    if (card && window.matchMedia('(hover: hover)').matches) {
+      window.addEventListener('mousemove', (e) => {
+        const x = (e.clientX / window.innerWidth) - 0.5;
+        const y = (e.clientY / window.innerHeight) - 0.5;
+        card.style.transform = `perspective(1000px) rotateX(${y * -12}deg) rotateY(${x * 12}deg)`;
+      });
+      window.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+      });
+    }
+
+    // Google Analytics 4 Conversion Event trigger (if gtag is loaded)
+    if (typeof gtag === 'function') {
+      gtag('event', 'generate_lead', {
+        event_category: 'Contact',
+        event_label: 'Portfolio Contact Form'
+      });
+    }
+  </script>
+</body>
+</html>

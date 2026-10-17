@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Official portfolio of Prathamesh Fatangade — published IJIRT Edge AI robotics researcher and quantitative market trader with 4+ years experience in Indian Equities and Forex.">
+  <title>Prathamesh Fatangade | Edge AI Researcher &amp; Quant Trader</title>
+
+  <!-- Canonical & Verification -->
+  <link rel="canonical" href="https://fatangadeprathamesh-svg.github.io/portfolio/">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Prathamesh Fatangade Portfolio">
+  <meta property="og:title" content="Prathamesh Fatangade | Edge AI Researcher &amp; Quant Trader">
+  <meta property="og:description" content="Official portfolio of Prathamesh Fatangade — published IJIRT Edge AI robotics researcher and quantitative market trader with 4+ years experience in Indian Equities and Forex.">
+  <meta property="og:url" content="https://fatangadeprathamesh-svg.github.io/portfolio/">
+  <meta property="og:image" content="assets/images/og-preview.svg">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Prathamesh Fatangade | Edge AI Researcher &amp; Quant Trader">
+  <meta name="twitter:description" content="Official portfolio of Prathamesh Fatangade — published IJIRT Edge AI robotics researcher and quantitative market trader with 4+ years experience in Indian Equities and Forex.">
+  <meta name="twitter:image" content="assets/images/og-preview.svg">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ============================================================
+       SECTION 1: INTRO ANIMATION
+       Cinematic loading screen with monogram and progress bar.
+       ============================================================ -->
+  <div id="introScreen" class="intro-screen" role="dialog" aria-label="Intro animation">
+    <!-- Ambient cinematic lighting & lens sweep -->
+    <div class="intro-backdrop-glow"></div>
+    <div class="intro-3d-grid" aria-hidden="true"></div>
+    <canvas id="introParticles" class="intro-particles"></canvas>
+    <div class="intro-light-beam"></div>
+
+    <div class="intro-center">
+      <!-- Netflix-style Chromatic Light Ribbons -->
+      <div class="intro-ribbons" aria-hidden="true">
+        <span class="ribbon r-1"></span>
+        <span class="ribbon r-2"></span>
+        <span class="ribbon r-3"></span>
+        <span class="ribbon r-4"></span>
+        <span class="ribbon r-5"></span>
+        <span class="ribbon r-6"></span>
+        <span class="ribbon r-7"></span>
+      </div>
+
+      <!-- 3D Staggered Cinematic Letters for PORTFOLIO -->
+      <div class="intro-title" aria-label="PORTFOLIO">
+        <span class="intro-letter" style="--i:0">P</span>
+        <span class="intro-letter" style="--i:1">O</span>
+        <span class="intro-letter" style="--i:2">R</span>
+        <span class="intro-letter" style="--i:3">T</span>
+        <span class="intro-letter" style="--i:4">F</span>
+        <span class="intro-letter" style="--i:5">O</span>
+        <span class="intro-letter" style="--i:6">L</span>
+        <span class="intro-letter" style="--i:7">I</span>
+        <span class="intro-letter" style="--i:8">O</span>
+      </div>
+
+      <div class="intro-tagline">Building ideas into digital experiences.</div>
+
+      <!-- Glowing Futuristic Scanner with Percentage -->
+      <div class="intro-loader-wrap">
+        <div class="intro-loader">
+          <div class="loader-bar" id="loaderBar"></div>
+          <div class="loader-laser"></div>
+        </div>
+        <span class="loader-percentage" id="loaderPercent">0%</span>
+      </div>
+    </div>
+
+    <!-- Shockwave Ring -->
+    <div class="intro-shockwave" id="introShockwave"></div>
+
+    <button class="skip-intro" id="skipIntro" aria-label="Skip intro animation">
+      Skip Intro <i class="fas fa-forward"></i>
+    </button>
+  </div>
+
+  <!-- ============================================================
+       SECTION 2: PROFILE SELECTION (Netflix-style)
+       ============================================================ -->
+  <div id="profileScreen" class="profile-screen screen-hidden" role="dialog" aria-label="Profile selection">
+    <div class="profile-3d-glow"></div>
+    <h2 class="profile-heading">Who's watching?</h2>
+    <div class="profile-container">
+      <button class="profile-card" id="profileCard" aria-label="Enter as Prathamesh">
+        <div class="profile-avatar">
+          <img src="assets/images/profile.jpg" alt="Prathamesh" class="profile-avatar-img">
+          <div class="profile-avatar-sheen"></div>
+        </div>
+        <p class="profile-name">Prathamesh</p>
+        <span class="profile-3d-badge"><i class="fas fa-play"></i> Watch Portfolio</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       MAIN CONTENT (hidden until profile is selected)
+       ============================================================ -->
+  <div id="mainContent" class="main-content screen-hidden">
+
+    <!-- ========== SECTION 3: NAVIGATION ========== -->
+    <nav id="navbar" class="navbar" role="navigation" aria-label="Main navigation">
+      <a href="#hero" class="nav-logo" aria-label="Home">PORTFOLIO</a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#hero" class="nav-link active">Home</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#research" class="nav-link">Research</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="#markets" class="nav-link">Markets</a></li>
+        <li><a href="#skills" class="nav-link">Skills</a></li>
+        <li><a href="#certificates" class="nav-link">Certificates</a></li>
+        <li><a href="#endorsements" class="nav-link">Reviews</a></li>
+        <li><a href="#faq" class="nav-link">FAQ</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+
+      <!-- Instant Spotlight Live Search Bar -->
+      <div class="nav-search-wrap">
+        <div class="nav-search-bar" id="navSearchBar">
+          <i class="fas fa-search search-icon" aria-hidden="true"></i>
+          <input type="text" id="globalSearchInput" class="nav-search-input" placeholder="Search portfolio (projects, research, skills)..." autocomplete="off" aria-label="Search portfolio">
+          <kbd class="search-key" title="Press / to focus search">/</kbd>
+          <button type="button" id="clearSearchBtn" class="clear-search-btn" aria-label="Clear search" style="display:none;">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <!-- Live Instant Search Dropdown Panel -->
+        <div class="search-results-dropdown" id="searchResultsDropdown" role="listbox" aria-label="Search results" style="display: none;"></div>
+      </div>
+
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Switch to Light Mode">
+          <i class="fas fa-sun"></i>
+        </button>
+        <button class="nav-resume-btn" id="navResumeBtn" aria-label="Download resume">
+          <i class="fas fa-download"></i> Resume
+        </button>
+      </div>
+
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+
+    <!-- Mobile Nav Overlay -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay">
+      <ul class="mobile-nav-links" id="mobileNavLinks">
+        <li style="margin-bottom: 6px;">
+          <div class="nav-search-bar" style="width: 100%;">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="mobileSearchInput" class="nav-search-input" placeholder="Search portfolio..." autocomplete="off">
+          </div>
+        </li>
+        <li><a href="#hero" class="mobile-nav-link">Home</a></li>
+        <li><a href="#about" class="mobile-nav-link">About</a></li>
+        <li><a href="#research" class="mobile-nav-link">Research</a></li>
+        <li><a href="#projects" class="mobile-nav-link">Projects</a></li>
+        <li><a href="#markets" class="mobile-nav-link">Markets</a></li>
+        <li><a href="#skills" class="mobile-nav-link">Skills</a></li>
+        <li><a href="#certificates" class="mobile-nav-link">Certificates</a></li>
+        <li><a href="#endorsements" class="mobile-nav-link">Reviews</a></li>
+        <li><a href="#faq" class="mobile-nav-link">FAQ</a></li>
+        <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
+        <li>
+          <button class="mobile-theme-btn" id="mobileThemeToggle" aria-label="Toggle theme">
+            <i class="fas fa-sun"></i> <span>Light Mode</span>
+          </button>
+        </li>
+        <li><button class="btn btn-primary" id="mobileResumeBtn"><i class="fas fa-download"></i> Resume</button></li>
+      </ul>
+    </div>
+
+    <!-- ========== SECTION 4: HERO / FEATURED INTRODUCTION ========== -->
+    <section id="hero" class="hero">
+      <div class="hero-gradient-overlay"></div>
+      <div class="hero-red-glow"></div>
+
+      <div class="hero-content reveal">
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px;">
+          <p class="hero-badge" style="margin-bottom: 0;">
+            <span class="badge-dot"></span>
+            Available for opportunities
+          </p>
+          <span class="hero-badge" style="margin-bottom: 0; color: #F5EBD0; border-color: rgba(127, 1, 31, 0.55); background: rgba(127, 1, 31, 0.25);">
+            <i class="fas fa-book-open" style="color: #F5EBD0;"></i> Published Researcher <span class="sand-diamond">◆</span> IJIRT (IF 8.412)
+          </span>
+          <span class="hero-badge" style="margin-bottom: 0; color: #F5EBD0; border-color: rgba(245, 235, 208, 0.35); background: rgba(245, 235, 208, 0.08);">
+            <i class="fas fa-chart-line" style="color: #10b981;"></i> 4+ Years Trader <span class="sand-diamond">◆</span> Stock &amp; Forex
+          </span>
+        </div>
+
+        <h1 class="hero-title"><span style="color: var(--accent-sand);">PRATHAMESH</span><br><span class="hero-title-accent" style="color: var(--accent-wine); text-shadow: 0 0 35px var(--accent-wine-glow);">FATANGADE</span></h1>
+        <p class="hero-role">M.Sc. Computer Science (Pursuing) &bull; Software Developer &amp; Quantitative Trader</p>
+        <p class="hero-tagline">"Building ideas into digital experiences — from Edge AI robotics and published research to 4+ years of disciplined Indian equity and Forex market trading."</p>
+        <p class="hero-location">
+          <i class="fas fa-map-marker-alt"></i> Maharashtra, India
+        </p>
+        <div class="hero-buttons">
+          <a href="#research" class="btn btn-primary">
+            <i class="fas fa-file-alt"></i> View Research
+          </a>
+          <a href="#projects" class="btn btn-secondary">
+            <i class="fas fa-play"></i> Explore Projects
+          </a>
+          <button class="btn btn-outline" id="heroResumeBtn">
+            <i class="fas fa-download"></i> Resume
+          </button>
+          <a href="#markets" class="btn btn-outline">
+            <i class="fas fa-chart-line"></i> Trading Journey
+          </a>
+        </div>
+        <p class="resume-confirm" id="resumeConfirm"><i class="fas fa-check-circle"></i> Resume downloaded!</p>
+      </div>
+
+      <div class="hero-portrait reveal">
+        <div class="hero-avatar-wrapper" id="heroAvatar">
+          <div class="avatar-ring"></div>
+          <img src="assets/images/profile.jpg" alt="Prathamesh Fatangade" class="hero-avatar-img">
+
+          <!-- 3D Floating Holographic Badges -->
+          <div class="hero-badge-3d badge-3d-ai">
+            <i class="fas fa-robot"></i>
+            <div>
+              <strong>Edge AI</strong>
+              <span>Robotics &amp; CV</span>
+            </div>
+          </div>
+          <div class="hero-badge-3d badge-3d-trade">
+            <i class="fas fa-chart-line"></i>
+            <div>
+              <strong>4+ Years</strong>
+              <span>Stock &amp; Forex</span>
+            </div>
+          </div>
+          <div class="hero-badge-3d badge-3d-pub">
+            <i class="fas fa-award"></i>
+            <div>
+              <strong>IJIRT</strong>
+              <span>IF 8.412</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SECTION 5: FEATURED PROJECTS ========== -->
+    <section id="projects" class="section">
+      <div class="section-header reveal">
+        <h2 class="section-title"><i class="fas fa-film"></i> Featured Projects</h2>
+        <p class="section-subtitle">Curated systems across Edge AI robotics, quantitative finance, and creative web engineering</p>
+      </div>
+
+      <!-- Clean Project Category Filter Bar -->
+      <div class="project-filter-bar reveal">
+        <button type="button" class="project-filter-btn active" data-filter="all">
+          <i class="fas fa-border-all"></i> All Projects <span class="filter-count">4</span>
+        </button>
+        <button type="button" class="project-filter-btn" data-filter="research">
+          <i class="fas fa-microchip"></i> Edge AI &amp; Robotics <span class="filter-count">2</span>
+        </button>
+        <button type="button" class="project-filter-btn" data-filter="finance">
+          <i class="fas fa-chart-line"></i> Quantitative Finance <span class="filter-count">1</span>
+        </button>
+        <button type="button" class="project-filter-btn" data-filter="web">
+          <i class="fas fa-laptop-code"></i> Web &amp; Creative <span class="filter-count">1</span>
+        </button>
+      </div>
+
+      <div class="project-row-wrapper">
+        <button class="row-arrow row-arrow-left" data-row="projectRow" aria-label="Scroll left">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <div class="project-row" id="projectRow">
+
+          <!-- Project 1: Smart Agriculture Robot (Research) -->
+          <article class="project-card reveal" data-project="0" data-category="research">
+            <div class="project-thumb gradient-1">
+              <i class="fas fa-robot"></i>
+              <span class="project-number">01</span>
+            </div>
+            <div class="project-info">
+              <h3>Smart Agriculture Robot</h3>
+              <p>Edge AI &bull; IoT Telemetry &bull; Rover</p>
+            </div>
+            <div class="project-expanded">
+              <h3>Smart Agriculture Robot with Edge AI</h3>
+              <p>Autonomous ground rover featuring differential-drive mobility, multi-sensor IoT telemetry (soil moisture, temperature), and on-board CNN edge computer vision for leaf disease detection. Published in IJIRT (IF: 8.412).</p>
+              <div class="project-tags">
+                <span class="tag">Raspberry Pi 4B</span>
+                <span class="tag">Edge CNN</span>
+                <span class="tag">IoT Sensors</span>
+                <span class="tag">IJIRT IF 8.412</span>
+              </div>
+              <div class="project-actions">
+                <button class="btn btn-sm btn-primary project-detail-btn" data-project="0">
+                  <i class="fas fa-info-circle"></i> Details
+                </button>
+                <a href="https://github.com/fatangadeprathamesh-svg" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline" title="GitHub — fatangadeprathamesh-svg">
+                  <i class="fab fa-github"></i>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 2: Quantitative Trading Backtester (Finance) -->
+          <article class="project-card reveal" data-project="1" data-category="finance">
+            <div class="project-thumb gradient-2">
+              <i class="fas fa-chart-line"></i>
+              <span class="project-number">02</span>
+            </div>
+            <div class="project-info">
+              <h3>Quantitative Backtester</h3>
+              <p>Python &bull; NSE/BSE &bull; Forex Risk</p>
+            </div>
+            <div class="project-expanded">
+              <h3>Quantitative Trading Backtester &amp; Risk Engine</h3>
+              <p>A Python-powered quantitative analysis and strategy backtesting framework modeling price action, Market Structure Shifts (MSS), and dynamic position sizing with strict 1:2+ Risk-to-Reward capital protection.</p>
+              <div class="project-tags">
+                <span class="tag">Python</span>
+                <span class="tag">Pandas</span>
+                <span class="tag">NSE/BSE</span>
+                <span class="tag">Forex</span>
+                <span class="tag">Risk 1:2+</span>
+              </div>
+              <div class="project-actions">
+                <button class="btn btn-sm btn-primary project-detail-btn" data-project="1">
+                  <i class="fas fa-info-circle"></i> Details
+                </button>
+                <a href="https://github.com/fatangadeprathamesh-svg" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline" title="GitHub — fatangadeprathamesh-svg">
+                  <i class="fab fa-github"></i>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 3: Autonomous Object Following Robot (Robotics & CV) -->
+          <article class="project-card reveal" data-project="2" data-category="research">
+            <div class="project-thumb gradient-3">
+              <i class="fas fa-microchip"></i>
+              <span class="project-number">03</span>
+            </div>
+            <div class="project-info">
+              <h3>Object Following Robot</h3>
+              <p>Raspberry Pi &bull; OpenCV &bull; CV</p>
+            </div>
+            <div class="project-expanded">
+              <h3>Autonomous Object Following Robot</h3>
+              <p>A Raspberry Pi 4B-powered robotic vehicle that detects, tracks, and follows dynamic objects using OpenCV color/contour extraction and closed-loop PID motor velocity adjustments.</p>
+              <div class="project-tags">
+                <span class="tag">Raspberry Pi</span>
+                <span class="tag">Python</span>
+                <span class="tag">OpenCV</span>
+                <span class="tag">PID Control</span>
+              </div>
+              <div class="project-actions">
+                <button class="btn btn-sm btn-primary project-detail-btn" data-project="2">
+                  <i class="fas fa-info-circle"></i> Details
+                </button>
+                <a href="https://github.com/fatangadeprathamesh-svg" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline" title="GitHub — fatangadeprathamesh-svg">
+                  <i class="fab fa-github"></i>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 4: Personal Portfolio Website (Web & Systems) -->
+          <article class="project-card reveal" data-project="3" data-category="web">
+            <div class="project-thumb gradient-4">
+              <i class="fas fa-globe"></i>
+              <span class="project-number">04</span>
+            </div>
+            <div class="project-info">
+              <h3>Personal Portfolio</h3>
+              <p>Wine Red &bull; Light Sand &bull; 3D</p>
+            </div>
+            <div class="project-expanded">
+              <h3>Luxury Editorial Developer Portfolio</h3>
+              <p>A bespoke, luxury portfolio designed in Wine Red (#7F011F) &amp; Light Sand (#F5EBD0) with live spotlight search, spring-lerped 3D card physics, dynamic resume generation, and interactive AI agent.</p>
+              <div class="project-tags">
+                <span class="tag">HTML5 / CSS3</span>
+                <span class="tag">Vanilla JS</span>
+                <span class="tag">Spotlight Search</span>
+                <span class="tag">3D Physics</span>
+              </div>
+              <div class="project-actions">
+                <button class="btn btn-sm btn-primary project-detail-btn" data-project="3">
+                  <i class="fas fa-info-circle"></i> Details
+                </button>
+                <a href="https://github.com/fatangadeprathamesh-svg" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline" title="GitHub — fatangadeprathamesh-svg">
+                  <i class="fab fa-github"></i>
+                </a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+        <button class="row-arrow row-arrow-right" data-row="projectRow" aria-label="Scroll right">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- ========== SECTION: FINANCIAL MARKETS & TRADING UNIVERSE ========== -->
+    <section id="markets" class="section">
+      <div class="section-header reveal">
+        <h2 class="section-title"><i class="fas fa-chart-line"></i> Financial Markets &amp; Trading</h2>
+        <p class="section-subtitle">4+ Years of active disciplined execution across Indian Equities and Global Forex markets</p>
+      </div>
+
+      <!-- Stat Highlights -->
+      <div class="market-stats-row reveal">
+        <div class="market-stat-tile">
+          <div class="stat-val">4+</div>
+          <div class="stat-desc">Years Active Market Experience</div>
+        </div>
+        <div class="market-stat-tile">
+          <div class="stat-val">2</div>
+          <div class="stat-desc">Core Domains: NSE/BSE &amp; Forex</div>
+        </div>
+        <div class="market-stat-tile">
+          <div class="stat-val">1:2+</div>
+          <div class="stat-desc">Risk-to-Reward Execution</div>
+        </div>
+        <div class="market-stat-tile">
+          <div class="stat-val"><i class="fas fa-brain" style="font-size: 2.2rem; color: var(--accent-red);"></i></div>
+          <div class="stat-desc">Quant &amp; Data-Driven Analytics</div>
+        </div>
+      </div>
+
+      <!-- Detailed Market Pillars -->
+      <div class="markets-grid">
+        <!-- Indian Stock Market Card -->
+        <div class="market-card reveal">
+          <div class="market-card-header">
+            <div class="market-icon-box">
+              <i class="fas fa-rupee-sign"></i>
+            </div>
+            <div>
+              <h3 class="market-card-title">Indian Stock Market (NSE / BSE)</h3>
+              <p class="market-card-subtitle">Equities, Swing Trading &amp; Portfolio Growth</p>
+            </div>
+          </div>
+          <div class="market-card-body">
+            <p style="margin-bottom: 14px;">
+              Active in Indian equities specializing in mid-cap and large-cap momentum, structural swing setups, and long-term value compounding.
+            </p>
+            <ul class="market-points">
+              <li><i class="fas fa-check-circle"></i> Price Action &amp; Volume Spread Analysis (VSA)</li>
+              <li><i class="fas fa-check-circle"></i> High-probability breakout &amp; pullback structure confirmations</li>
+              <li><i class="fas fa-check-circle"></i> Macro tracking: RBI policy, earnings cycles, and sector rotation</li>
+              <li><i class="fas fa-check-circle"></i> Fundamental research into balance sheets and sustainable moat</li>
+            </ul>
+          </div>
+          <div class="market-tags">
+            <span class="tag">NSE / BSE</span>
+            <span class="tag">Equities</span>
+            <span class="tag">Swing Trading</span>
+            <span class="tag">Price Action</span>
+            <span class="tag">Sector Rotation</span>
+          </div>
+        </div>
+
+        <!-- Forex Market Card -->
+        <div class="market-card reveal">
+          <div class="market-card-header">
+            <div class="market-icon-box">
+              <i class="fas fa-globe-americas"></i>
+            </div>
+            <div>
+              <h3 class="market-card-title">Global Forex Trading (FX)</h3>
+              <p class="market-card-subtitle">Major &amp; Minor Currency Pairs</p>
+            </div>
+          </div>
+          <div class="market-card-body">
+            <p style="margin-bottom: 14px;">
+              Trading currency markets with a focus on high-liquidity market sessions, structural market geometry, and macroeconomic catalysts.
+            </p>
+            <ul class="market-points">
+              <li><i class="fas fa-check-circle"></i> High-liquidity majors &amp; crosses: USD, EUR, GBP, JPY, and INR</li>
+              <li><i class="fas fa-check-circle"></i> High-volume session trading (London &amp; New York overlap)</li>
+              <li><i class="fas fa-check-circle"></i> Catalyst navigation: Fed rate decisions, CPI inflation, and GDP releases</li>
+              <li><i class="fas fa-check-circle"></i> Institutional liquidity zones &amp; multi-timeframe order flow</li>
+            </ul>
+          </div>
+          <div class="market-tags">
+            <span class="tag">Forex (FX)</span>
+            <span class="tag">Major Pairs</span>
+            <span class="tag">Liquidity Zones</span>
+            <span class="tag">Macro Economics</span>
+            <span class="tag">Session Overlap</span>
+          </div>
+        </div>
+
+        <!-- Risk Management & Psychology Card -->
+        <div class="market-card reveal">
+          <div class="market-card-header">
+            <div class="market-icon-box">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <div>
+              <h3 class="market-card-title">Risk Management &amp; Psychology</h3>
+              <p class="market-card-subtitle">Capital Preservation as Priority #1</p>
+            </div>
+          </div>
+          <div class="market-card-body">
+            <p style="margin-bottom: 14px;">
+              4+ years of real-market immersion has taught me that profitability is rooted in disciplined math and psychological resilience.
+            </p>
+            <ul class="market-points">
+              <li><i class="fas fa-check-circle"></i> Pre-calculated position sizing with maximum 1-2% risk per trade</li>
+              <li><i class="fas fa-check-circle"></i> Asymmetric risk-to-reward targets (minimum 1:2 R:R execution)</li>
+              <li><i class="fas fa-check-circle"></i> Systematic trailing stops and strict no-averaging-down discipline</li>
+              <li><i class="fas fa-check-circle"></i> Detailed digital trade journaling and emotion-neutral review</li>
+            </ul>
+          </div>
+          <div class="market-tags">
+            <span class="tag">Risk Control</span>
+            <span class="tag">Position Sizing</span>
+            <span class="tag">1:2+ R:R</span>
+            <span class="tag">Trade Journaling</span>
+            <span class="tag">Psychology</span>
+          </div>
+        </div>
+
+        <!-- Quantitative & FinTech Synergy Card -->
+        <div class="market-card reveal">
+          <div class="market-card-header">
+            <div class="market-icon-box">
+              <i class="fas fa-laptop-code"></i>
+            </div>
+            <div>
+              <h3 class="market-card-title">FinTech &amp; Quantitative Synergy</h3>
+              <p class="market-card-subtitle">Computer Science Meets Market Data</p>
+            </div>
+          </div>
+          <div class="market-card-body">
+            <p style="margin-bottom: 14px;">
+              Leveraging Computer Science expertise to develop automated screening pipelines, backtesting frameworks, and quantitative trackers.
+            </p>
+            <ul class="market-points">
+              <li><i class="fas fa-check-circle"></i> Python scripts for automated historical market data retrieval</li>
+              <li><i class="fas fa-check-circle"></i> Custom technical screener filters for stock breakout setups</li>
+              <li><i class="fas fa-check-circle"></i> Quantitative analysis of drawdowns, Sharpe ratios, and win-loss metrics</li>
+              <li><i class="fas fa-check-circle"></i> Algorithmic rule-based checklists eliminating discretionary cognitive bias</li>
+            </ul>
+          </div>
+          <div class="market-tags">
+            <span class="tag">Python FinTech</span>
+            <span class="tag">Backtesting</span>
+            <span class="tag">Data Analysis</span>
+            <span class="tag">Algo Screening</span>
+            <span class="tag">Automation</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Risk Disclaimer -->
+      <div class="market-disclaimer-box reveal">
+        <i class="fas fa-exclamation-triangle"></i>
+        <div>
+          <strong>Risk Disclaimer:</strong> Financial market trading and investments involve substantial capital risk. The information presented on this portfolio reflects my personal 4-year learning journey, technical methodology, and practical market experience. It does not constitute financial, investment, or trading advice.
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SECTION 6: SKILLS & TECHNOLOGY ========== -->
+    <section id="skills" class="section">
+      <div class="section-header reveal">
+        <h2 class="section-title"><i class="fas fa-code"></i> Skills &amp; Technology</h2>
+        <p class="section-subtitle">Technologies, engineering domains, and financial skills I work with</p>
+      </div>
+
+      <div class="skills-grid">
+        <!-- Programming -->
+        <div class="skill-category reveal">
+          <h3 class="skill-category-title"><i class="fas fa-terminal"></i> Programming</h3>
+          <div class="skill-items">
+            <div class="skill-item">
+              <i class="fab fa-python"></i>
+              <span>Python</span>
+            </div>
+            <div class="skill-item">
+              <i class="fab fa-js-square"></i>
+              <span>JavaScript</span>
+            </div>
+            <div class="skill-item">
+              <i class="fab fa-php"></i>
+              <span>PHP</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Financial Markets & Trading -->
+        <div class="skill-category reveal">
+          <h3 class="skill-category-title"><i class="fas fa-chart-line"></i> Financial Markets</h3>
+          <div class="skill-items">
+            <div class="skill-item">
+              <i class="fas fa-rupee-sign"></i>
+              <span>Indian Stock Market</span>
+            </div>
+            <div class="skill-item">
+              <i class="fas fa-dollar-sign"></i>
+              <span>Forex Trading</span>
+            </div>
+            <div class="skill-item">
+              <i class="fas fa-search-dollar"></i>
+              <span>Technical Analysis</span>
+            </div>
+            <div class="skill-item">
+              <i class="fas fa-shield-alt"></i>
+              <span>Risk Management</span>
+            </div>
+            <div class="skill-item">
+              <i class="fas fa-book"></i>
+              <span>Trade Journaling</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Frontend -->
+        <div class="skill-category reveal">
+          <h3 class="skill-category-title"><i class="fas fa-palette"></i> Frontend</h3>
+          <div class="skill-items">
+            <div class="skill-item">
+              <i class="fab fa-html5"></i>
+              <span>HTML5</span>
+            </div>
+            <div class="skill-item">
+              <i class="fab fa-css3-alt"></i>
+              <span>CSS3</span>
+            </div>
+            <div class="skill-item">
+              <i class="fas fa-mobile-alt"></i>
+              <span>Responsive</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Backend -->
+        <div class="skill-category reveal">
+          <h3 class="skill-category-title"><i class="fas fa-server"></i> Backend</h3>
+          <div class="skill-items">
+            <div class="skill-item">
+              <i class="fab fa-php"></i>
+              <span>PHP</span>
+            </div>
+            <div class="skill-item">
+              <i class="fas fa-cogs"></i>
+              <span>Server-side</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Database -->
+        <div class="skill-category reveal">
+          <h3 class="skill-category-title"><i class="fas fa-database"></i> Database</h3>
+          <div class="skill-items">
+            <div class="skill-item">
+              <i class="fas fa-database"></i>
+              <span>MySQL</span>
+            </div>
+            <div class="skill-item">
+              <i class="fas fa-table"></i>
+              <span>SQL</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tools -->
+        <div class="skill-category reveal">
+          <h3 class="skill-category-title"><i class="fas fa-wrench"></i> Tools</h3>
+          <div class="skill-items">
+            <div class="skill-item">
+              <i class="fas fa-code"></i>
+              <span>VS Code</span>
+            </div>
+            <div class="skill-item">
+              <i class="fab fa-git-alt"></i>
+              <span>Git</span>
+            </div>
+            <div class="skill-item">
+              <i class="fab fa-github"></i>
+              <span>GitHub</span>
+            </div>
+            <div class="skill-item">
+              <i class="fas fa-server"></i>
+              <span>XAMPP</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Emerging Tech & Edge AI -->
+        <div class="skill-category reveal">
+          <h3 class="skill-category-title"><i class="fas fa-rocket"></i> Emerging Tech &amp; AI</h3>
+          <div class="skill-items">
+            <div class="skill-item">
+              <i class="fas fa-brain"></i>
+              <span>AI / ML</span>
+            </div>
+            <div class="skill-item">
+              <i class="fas fa-comments"></i>
+              <span>NLP</span>
+            </div>
+            <div class="skill-item">
+              <i class="fas fa-microchip"></i>
+              <span>Edge AI</span>
+            </div>
+            <div class="skill-item">
+              <i class="fas fa-robot"></i>
+              <span>Raspberry Pi &amp; IoT</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SECTION 7: ABOUT ME ========== -->
+    <section id="about" class="section">
+      <div class="section-header reveal">
+        <h2 class="section-title"><i class="fas fa-user"></i> About Me</h2>
+        <p class="section-subtitle">Bridging computer science, autonomous robotics, and financial markets</p>
+      </div>
+
+      <div class="about-container">
+        <div class="about-image reveal">
+          <div class="about-avatar-wrapper">
+            <img src="assets/images/profile.jpg" alt="Prathamesh Fatangade" class="about-avatar-img">
+          </div>
+        </div>
+
+        <div class="about-text reveal">
+          <h3 class="about-name">Prathamesh Fatangade</h3>
+          <p class="about-role">M.Sc. Computer Science Student, Published Researcher &amp; Market Trader</p>
+          <p class="about-bio">
+            I'm a curious and driven Computer Science post-graduate student at <strong>MAEER's MIT Arts, Commerce and Science College, Alandi (Pune)</strong>, passionate about transforming theoretical engineering into robust, real-world digital solutions. My academic and practical work spans Edge AI, IoT-driven robotics, full-stack web applications, and data-driven systems.
+          </p>
+          <p class="about-bio">
+            Alongside technology, I have <strong>4+ years of active, hands-on trading experience in the Indian Stock Market (NSE/BSE) and Global Forex Markets</strong>. I apply a quantitative, disciplined approach centered on technical price action, liquidity dynamics, strict risk-to-reward ratios, and emotional mastery.
+          </p>
+          <p class="about-bio">
+            Recently, my co-authored research paper on autonomous agricultural robotics and Edge AI was published in the <em>International Journal of Innovative Research in Technology (IJIRT)</em> with an Impact Factor of 8.412.
+          </p>
+
+          <div class="about-details">
+            <div class="about-detail-item">
+              <i class="fas fa-graduation-cap"></i>
+              <div>
+                <strong>Education</strong>
+                <p>M.Sc. Computer Science (Pursuing)</p>
+                <p style="font-size: 0.8rem; color: var(--text-muted);">MAEER's MIT ACSC, Alandi (D), Pune</p>
+              </div>
+            </div>
+            <div class="about-detail-item">
+              <i class="fas fa-chart-line"></i>
+              <div>
+                <strong>Market Experience</strong>
+                <p>4+ Years Trader &amp; Investor</p>
+                <p style="font-size: 0.8rem; color: var(--text-muted);">Indian Equities (NSE/BSE) &amp; Forex</p>
+              </div>
+            </div>
+            <div class="about-detail-item">
+              <i class="fas fa-book"></i>
+              <div>
+                <strong>Research Work</strong>
+                <p>Published in IJIRT (IF 8.412)</p>
+                <p style="font-size: 0.8rem; color: var(--text-muted);">Smart Agriculture Robotics &amp; Edge AI</p>
+              </div>
+            </div>
+            <div class="about-detail-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <div>
+                <strong>Location</strong>
+                <p>Maharashtra, India</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SECTION: RESEARCH WORK & PUBLICATIONS ========== -->
+    <section id="research" class="section">
+      <div class="section-header reveal">
+        <h2 class="section-title"><i class="fas fa-book-open"></i> Research Work &amp; Publications</h2>
+        <p class="section-subtitle">Peer-reviewed international journal publication &amp; extended book chapter</p>
+      </div>
+
+      <div class="research-featured-box reveal">
+        <div class="research-badge-row">
+          <span class="badge-journal"><i class="fas fa-award"></i> IJIRT International Journal</span>
+          <span class="badge-impact"><i class="fas fa-star"></i> Impact Factor: 8.412</span>
+          <span class="badge-meta">ISSN: 2349-6002</span>
+          <span class="badge-meta">Volume 13, Issue 5 &bull; October 2026</span>
+          <span class="badge-meta">Registration ID: 209192</span>
+        </div>
+
+        <h3 class="research-paper-title">
+          SMART AGRICULTURE ROBOT FOR CROP MONITORING USING IOT SENSING, AUTONOMOUS NAVIGATION AND EDGE AI
+        </h3>
+
+        <p class="research-authors">
+          Authors: <strong class="primary-author">Prathamesh Fatangade¹</strong>, <strong>Tejas Kalaskar²</strong>, <strong>Yash Jagdale³</strong>, <strong>Yash Hinge⁴</strong>, <strong>Dr. Sunil Mahajan⁵*</strong> (Corresponding Author)
+        </p>
+        <p class="research-affil">
+          <i class="fas fa-university"></i> MAEER’s MIT Arts, Commerce and Science College, Alandi (D), Pune, Maharashtra, India
+        </p>
+
+        <div class="research-abstract-quote">
+          <p>
+            <strong>Abstract:</strong> Smart agriculture integrates sensing, communication, automation, data analytics, and decision support to improve crop management. This research presents the design and analysis of an autonomous ground-based robot for crop scouting across field rows. Combining environmental sensors, soil capacitive probes, RGB imaging, edge computing, and crop-row navigation, the system performs geo-referenced crop scouting, soil-moisture mapping, microclimate tracking, and uncertainty-aware AI disease screening for proactive farmer decision support.
+          </p>
+        </div>
+
+        <div class="research-pillars-grid">
+          <div class="research-pillar-card">
+            <i class="fas fa-robot"></i>
+            <h4>Mechanical &amp; Power Architecture</h4>
+            <p>4-wheel differential-drive chassis with low center of gravity, LiFePO₄ battery management, and hardware emergency-stop safety.</p>
+          </div>
+          <div class="research-pillar-card">
+            <i class="fas fa-microchip"></i>
+            <h4>IoT Multi-Sensor Suite</h4>
+            <p>Capacitive soil moisture sensing, microclimate monitoring (temp/humidity/light), and obstacle avoidance sensor fusion.</p>
+          </div>
+          <div class="research-pillar-card">
+            <i class="fas fa-brain"></i>
+            <h4>Edge AI &amp; Vision Intelligence</h4>
+            <p>On-board convolutional neural network screening for early leaf disease symptoms, canopy vigour, and weed presence with confidence scores.</p>
+          </div>
+          <div class="research-pillar-card">
+            <i class="fas fa-tachometer-alt"></i>
+            <h4>Decision Support Dashboard</h4>
+            <p>Geo-referenced field mapping, proactive threshold alerts, and cloud telemetry synchronization for actionable farm intervention.</p>
+          </div>
+        </div>
+
+        <div class="research-downloads-bar">
+          <a href="assets/research/Smart_Agriculture_Robot_Research_Paper.docx" download class="btn btn-sm btn-research-doc">
+            <i class="fas fa-file-word"></i> Download Research Paper (.docx)
+          </a>
+          <a href="assets/research/Smart_Agriculture_Robot_Book_Chapter.docx" download class="btn btn-sm btn-research-doc">
+            <i class="fas fa-file-word"></i> Download Book Chapter (.docx)
+          </a>
+          <a href="assets/certificates/IJIRT_Publication_Certificate.pdf" target="_blank" class="btn btn-sm btn-cert-link">
+            <i class="fas fa-certificate"></i> View IJIRT Certificate (.pdf)
+          </a>
+          <a href="https://ijirt.org/article?manuscript=209192" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline">
+            <i class="fas fa-external-link-alt"></i> IJIRT Paper Weblink
+          </a>
+          <button class="btn btn-sm btn-primary" id="openResearchAbstractBtn">
+            <i class="fas fa-expand-alt"></i> Read Full Abstract &amp; Architecture
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SECTION 8: EDUCATION & CERTIFICATES ========== -->
+    <section id="certificates" class="section">
+      <div class="section-header reveal">
+        <h2 class="section-title"><i class="fas fa-certificate"></i> Education &amp; Certifications</h2>
+        <p class="section-subtitle">Academic background, peer-reviewed publications, and certified technical credentials</p>
+      </div>
+
+      <div class="cert-grid">
+        <!-- Education Card -->
+        <div class="cert-card reveal">
+          <span class="cert-badge-status"><i class="fas fa-graduation-cap"></i> Degree Pursuing</span>
+          <div class="cert-icon"><i class="fas fa-university"></i></div>
+          <h3 class="cert-title">M.Sc. in Computer Science</h3>
+          <p class="cert-org">MAEER’s MIT Arts, Commerce and Science College</p>
+          <p class="cert-year">Alandi (D), Pune &bull; Maharashtra, India</p>
+          <p class="cert-note">
+            Advanced coursework: Web Technologies, NoSQL Databases, Python Programming, Research Methodology, Discrete Mathematics, Cloud Security &amp; AI Systems.
+          </p>
+        </div>
+
+        <!-- Certificate 1: IJIRT Publication -->
+        <div class="cert-card reveal">
+          <span class="cert-badge-status"><i class="fas fa-award"></i> Published Paper</span>
+          <div class="cert-icon"><i class="fas fa-book-open"></i></div>
+          <h3 class="cert-title">Certificate of Publication</h3>
+          <p class="cert-org">IJIRT (International Journal of Innovative Research in Technology)</p>
+          <p class="cert-year">Volume 13 Issue 5, October 2026 &bull; Impact Factor: 8.412</p>
+          <p class="cert-card-code">ISSN: 2349-6002 &bull; Reg ID: 209192</p>
+          <p class="cert-note" style="margin-bottom: 14px;">
+            "Smart Agriculture Robot for Crop Monitoring Using IoT Sensing, Autonomous Navigation and Edge AI"
+          </p>
+          <div class="cert-btn-group">
+            <a href="assets/certificates/IJIRT_Publication_Certificate.pdf" target="_blank" class="btn btn-sm btn-primary">
+              <i class="fas fa-file-pdf"></i> View Certificate
+            </a>
+            <a href="https://ijirt.org/article?manuscript=209192" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline">
+              <i class="fas fa-external-link-alt"></i> Journal Link
+            </a>
+          </div>
+        </div>
+
+        <!-- Certificate 2: Outskill x Moneycontrol -->
+        <div class="cert-card reveal">
+          <span class="cert-badge-status"><i class="fas fa-check-circle"></i> Verified Mastermind</span>
+          <div class="cert-icon"><i class="fas fa-brain"></i></div>
+          <h3 class="cert-title">Generative AI Mastermind</h3>
+          <p class="cert-org">Outskill &times; Moneycontrol</p>
+          <p class="cert-year">Founder: Vaibhav Sisinty &bull; Presented to Prathamesh Balasaheb Fatangade</p>
+          <p class="cert-card-code">Issued: 2026</p>
+          <p class="cert-note" style="margin-bottom: 14px;">
+            Hands-on mastery of Generative AI tools, prompt engineering architecture, LLM workflow automations, and practical AI implementations.
+          </p>
+          <div class="cert-btn-group">
+            <a href="assets/certificates/Outskill_Generative_AI_Certificate.pdf" target="_blank" class="btn btn-sm btn-primary">
+              <i class="fas fa-file-pdf"></i> View Certificate
+            </a>
+          </div>
+        </div>
+
+        <!-- Certificate 3: Simplilearn SkillUp -->
+        <div class="cert-card reveal">
+          <span class="cert-badge-status"><i class="fas fa-shield-alt"></i> Verified Credential</span>
+          <div class="cert-icon"><i class="fas fa-lock"></i></div>
+          <h3 class="cert-title">Introduction to Cloud Security</h3>
+          <p class="cert-org">Simplilearn SkillUp</p>
+          <p class="cert-year">Issued: 3rd October 2026 &bull; CEO: Krishna Kumar</p>
+          <p class="cert-card-code">Certificate Code: 10829756</p>
+          <p class="cert-note" style="margin-bottom: 14px;">
+            Comprehensive fundamentals of cloud infrastructure security, identity and access management (IAM), data protection, and cloud risk mitigation.
+          </p>
+          <div class="cert-btn-group">
+            <a href="assets/certificates/Simplilearn_Cloud_Security_Certificate.pdf" target="_blank" class="btn btn-sm btn-primary">
+              <i class="fas fa-file-pdf"></i> View Certificate
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SECTION 9: ACHIEVEMENTS & HIGHLIGHTS ========== -->
+    <section id="achievements" class="section">
+      <div class="section-header reveal">
+        <h2 class="section-title"><i class="fas fa-trophy"></i> Achievements &amp; Highlights</h2>
+        <p class="section-subtitle">Academic accomplishments, research milestones, and financial market milestones</p>
+      </div>
+
+      <div class="achievements-grid">
+        <div class="achievement-card reveal">
+          <div class="achievement-icon"><i class="fas fa-scroll"></i></div>
+          <h3>International Research Publication</h3>
+          <p>Lead co-author on smart agriculture robotics published in IJIRT (ISSN 2349-6002, Impact Factor 8.412).</p>
+        </div>
+        <div class="achievement-card reveal">
+          <div class="achievement-icon"><i class="fas fa-chart-line"></i></div>
+          <h3>4+ Years Active Market Trader</h3>
+          <p>Disciplined execution across Indian Equities (NSE/BSE) and Global Forex markets with risk-first math.</p>
+        </div>
+        <div class="achievement-card reveal">
+          <div class="achievement-icon"><i class="fas fa-robot"></i></div>
+          <h3>Hardware &amp; AI Robotics</h3>
+          <p>Built autonomous Raspberry Pi 4B computer vision robots and integrated edge sensor suites.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SECTION 10: CONTACT ========== -->
+    <section id="contact" class="section">
+      <div class="section-header reveal">
+        <h2 class="section-title"><i class="fas fa-paper-plane"></i> Let's Build Something Great</h2>
+        <p class="section-subtitle">Have an idea or want to collaborate? Reach out!</p>
+      </div>
+
+      <div class="contact-container">
+        <div class="contact-info reveal">
+          <div class="contact-info-item">
+            <i class="fas fa-envelope"></i>
+            <div>
+              <strong>Email</strong>
+              <p><a href="mailto:fatangadeprathamesh@gmail.com" style="color: inherit; text-decoration: none; border-bottom: 1px dotted var(--accent-red);">fatangadeprathamesh@gmail.com</a></p>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <i class="fab fa-github"></i>
+            <div>
+              <strong>GitHub</strong>
+              <a href="https://github.com/fatangadeprathamesh-svg" target="_blank" rel="noopener noreferrer">github.com/fatangadeprathamesh-svg</a>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <i class="fab fa-linkedin"></i>
+            <div>
+              <strong>LinkedIn</strong>
+              <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">linkedin.com/in/fatangadeprathamesh</a>
+            </div>
+          </div>
+          <p class="contact-note">
+            <i class="fas fa-info-circle"></i>
+            This form opens your email client with the message pre-filled.
+            For server-side delivery, connect a backend service such as Formspree or Netlify Forms.
+          </p>
+        </div>
+
+        <form class="contact-form reveal" id="contactForm" novalidate>
+          <div class="form-group">
+            <label for="contactName">Name <span class="required">*</span></label>
+            <input type="text" id="contactName" placeholder="Your name" required>
+            <p class="form-error" id="nameError">Please enter your name.</p>
+          </div>
+          <div class="form-group">
+            <label for="contactEmail">Email <span class="required">*</span></label>
+            <input type="email" id="contactEmail" placeholder="you@example.com" required>
+            <p class="form-error" id="emailError">Please enter a valid email address.</p>
+          </div>
+          <div class="form-group">
+            <label for="contactSubject">Subject</label>
+            <input type="text" id="contactSubject" placeholder="What's this about?">
+          </div>
+          <div class="form-group">
+            <label for="contactMessage">Message <span class="required">*</span></label>
+            <textarea id="contactMessage" placeholder="Write your message…" rows="5" required></textarea>
+            <p class="form-error" id="messageError">Please enter a message.</p>
+          </div>
+          <!-- Honeypot Anti-Spam Protection (Checklist Item 10) -->
+          <div style="display:none !important; visibility:hidden; opacity:0; position:absolute; left:-9999px;" aria-hidden="true">
+            <label for="contactHoneypot">Security Check</label>
+            <input type="text" id="contactHoneypot" name="_antispam_honey" tabindex="-1" autocomplete="off">
+          </div>
+          <button type="submit" class="btn btn-primary btn-full" id="contactSubmitBtn">
+            <i class="fas fa-paper-plane"></i> Send Message
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ========== SECTION 10: ACADEMIC ENDORSEMENTS & REVIEWS ========== -->
+    <section id="endorsements" class="section">
+      <div class="section-header reveal">
+        <h2 class="section-title"><i class="fas fa-quote-left"></i> Endorsements &amp; Academic Reviews</h2>
+        <p class="section-subtitle">Verified feedback from research mentors, academic guides &amp; technical peers</p>
+      </div>
+
+      <div class="endorsements-grid reveal">
+        <!-- Review 1: Research Guide -->
+        <article class="endorsement-card card-3d">
+          <div class="card-3d-glare"></div>
+          <div class="endorsement-rating">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            <span class="endorsement-badge">Research Guide</span>
+          </div>
+          <blockquote class="endorsement-quote">
+            "Prathamesh demonstrated extraordinary technical diligence and research acumen during the development of the Edge AI-driven agricultural robot. His published paper in IJIRT (IF 8.412) reflects rigorous methodology, seamless hardware-software integration on Raspberry Pi 4B, and deep commitment to applied computer science."
+          </blockquote>
+          <div class="endorsement-author">
+            <div class="author-avatar"><i class="fas fa-user-graduate"></i></div>
+            <div>
+              <h4 class="author-name">Dr. Vaishali Patil</h4>
+              <p class="author-role">Project Guide &amp; Research Mentor &bull; MIT ACSC Pune</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Review 2: Peer Review / Technical Evaluator -->
+        <article class="endorsement-card card-3d">
+          <div class="card-3d-glare"></div>
+          <div class="endorsement-rating">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            <span class="endorsement-badge">Market Strategy</span>
+          </div>
+          <blockquote class="endorsement-quote">
+            "His quantitative market framework blends deep Price Action mechanics with disciplined mathematical risk bounds. Maintaining strict 1:2+ risk-to-reward metrics over 4+ years across both volatile Indian Equities and Forex pairs demonstrates remarkable psychological poise and analytical maturity."
+          </blockquote>
+          <div class="endorsement-author">
+            <div class="author-avatar"><i class="fas fa-chart-pie"></i></div>
+            <div>
+              <h4 class="author-name">Quantitative Strategy Review</h4>
+              <p class="author-role">Technical Evaluator &bull; Indian Equities &amp; Forex Group</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========== SECTION 11: FREQUENTLY ASKED QUESTIONS (FAQ) ========== -->
+    <section id="faq" class="section">
+      <div class="section-header reveal">
+        <h2 class="section-title"><i class="fas fa-question-circle"></i> Frequently Asked Questions</h2>
+        <p class="section-subtitle">Answers regarding research, robotics, algorithmic trading, and collaboration</p>
+      </div>
+
+      <div class="faq-container reveal">
+        <!-- FAQ 1 -->
+        <div class="faq-item card-3d">
+          <button class="faq-question" aria-expanded="false">
+            <span>What are your primary research specializations in Edge AI &amp; Robotics?</span>
+            <i class="fas fa-chevron-down faq-icon"></i>
+          </button>
+          <div class="faq-answer">
+            <p>My core research centers on deploying quantized Convolutional Neural Networks (CNNs) directly onto resource-constrained embedded systems such as the <strong>Raspberry Pi 4B</strong> for real-time inference. My published work in <em>IJIRT (IF 8.412)</em> showcases autonomous agricultural disease surveillance with closed-loop IoT sensor telemetry, bypassing the latency and connectivity constraints of cloud-only systems.</p>
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item card-3d">
+          <button class="faq-question" aria-expanded="false">
+            <span>What is your methodology and risk strategy in Indian Equities &amp; Forex?</span>
+            <i class="fas fa-chevron-down faq-icon"></i>
+          </button>
+          <div class="faq-answer">
+            <p>With 4+ years of live market experience across NSE/BSE and major currency pairs, I operate strictly on <strong>Price Action, Liquidity Sweeps, and Market Structure Shifts (MSS)</strong>. Every execution enforces non-negotiable 1:2 to 1:3+ Risk-to-Reward parameters, automated drawdown caps, and position sizing calibrated through custom Python backtesting routines.</p>
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item card-3d">
+          <button class="faq-question" aria-expanded="false">
+            <span>Where can I verify your published IJIRT research paper and credentials?</span>
+            <i class="fas fa-chevron-down faq-icon"></i>
+          </button>
+          <div class="faq-answer">
+            <p>The paper is officially indexed in the <em>International Journal of Innovative Research in Technology (IJIRT)</em>, Volume 13, Issue 5, October 2026 under Registration ID <code>209192</code> with an Impact Factor of <code>8.412</code> and ISSN <code>2349-6002</code>. The verified publication certificate and full abstract are inspectable in the <a href="#research" style="color: var(--accent-sand); text-decoration: underline;">Research section</a> of this portfolio.</p>
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item card-3d">
+          <button class="faq-question" aria-expanded="false">
+            <span>What degree program are you pursuing and what is your academic coursework?</span>
+            <i class="fas fa-chevron-down faq-icon"></i>
+          </button>
+          <div class="faq-answer">
+            <p>I am pursuing an <strong>M.Sc. in Computer Science</strong> at MAEER’s MIT Arts, Commerce and Science College (MIT ACSC), Alandi (D), Pune. My coursework spans Advanced Python, NoSQL Databases, Web Technologies, Discrete Mathematics, Research Methodology, and Cloud Security.</p>
+          </div>
+        </div>
+
+        <!-- FAQ 5 -->
+        <div class="faq-item card-3d">
+          <button class="faq-question" aria-expanded="false">
+            <span>How can I reach out for research collaboration, consulting, or technical roles?</span>
+            <i class="fas fa-chevron-down faq-icon"></i>
+          </button>
+          <div class="faq-answer">
+            <p>You can send a message directly through the <a href="#contact" style="color: var(--accent-sand); text-decoration: underline;">Contact Form</a>, email me directly at <a href="mailto:fatangadeprathamesh@gmail.com" style="color: var(--accent-sand); text-decoration: underline;">fatangadeprathamesh@gmail.com</a>, or explore repositories and submit issues on <a href="https://github.com/fatangadeprathamesh-svg" target="_blank" rel="noopener noreferrer" style="color: var(--accent-sand); text-decoration: underline;">GitHub</a>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SECTION 12: CINEMATIC ENDING ========== -->
+    <section id="ending" class="ending">
+      <div class="ending-glow"></div>
+      <div class="ending-content reveal">
+        <h2 class="ending-title">TO BE CONTINUED<span class="ending-dots">...</span></h2>
+        <p class="ending-name">Prathamesh Fatangade</p>
+        <div class="ending-social">
+          <a href="https://github.com/fatangadeprathamesh-svg" class="ending-social-link" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub — fatangadeprathamesh-svg">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="https://www.linkedin.com" class="ending-social-link" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="mailto:fatangadeprathamesh@gmail.com" class="ending-social-link" aria-label="Email" title="Email — fatangadeprathamesh@gmail.com">
+            <i class="fas fa-envelope"></i>
+          </a>
+        </div>
+        <div class="ending-legal-links" style="margin-top: 24px; font-size: 0.85rem; color: #8C7D6D;">
+          <a href="privacy-policy.html" style="color: #D4C7B5; text-decoration: none; margin: 0 8px;">Privacy Policy</a> &bull;
+          <a href="sitemap.xml" target="_blank" style="color: #D4C7B5; text-decoration: none; margin: 0 8px;">Sitemap</a> &bull;
+          <a href="robots.txt" target="_blank" style="color: #D4C7B5; text-decoration: none; margin: 0 8px;">Robots.txt</a>
+        </div>
+        <button class="btn btn-outline btn-back-top" id="endingBackToTop" style="margin-top: 24px;">
+          <i class="fas fa-chevron-up"></i> Back to Top
+        </button>
+      </div>
+    </section>
+
+  </div><!-- /.main-content -->
+
+  <!-- ========== PROJECT DETAIL MODAL ========== -->
+  <div id="projectModal" class="modal" role="dialog" aria-hidden="true" aria-label="Project details">
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal-content">
+      <button class="modal-close" id="modalClose" aria-label="Close modal">&times;</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- ========== BACK TO TOP BUTTON ========== -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top" title="Back to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- ============================================================
+       SECTION 12: NETFLIX-THEMED INTERACTIVE AI CHATBOT
+       Floating AI Assistant for Portfolio Exploration
+       ============================================================ -->
+  <aside id="aiChatbot" class="ai-chatbot" aria-label="AI Portfolio Assistant">
+    <!-- Floating Launcher Trigger Button -->
+    <button class="chatbot-trigger" id="chatbotTrigger" aria-label="Open AI Assistant" title="Chat with Prathamesh's AI">
+      <span class="chatbot-trigger-icon">
+        <i class="fas fa-robot"></i>
+      </span>
+      <span class="chatbot-trigger-text">Ask Prathamesh AI</span>
+      <span class="chatbot-trigger-badge">Online</span>
+      <span class="chatbot-pulse-ring" aria-hidden="true"></span>
+    </button>
+
+    <!-- Chatbot Window Panel -->
+    <div class="chatbot-window" id="chatbotWindow" role="dialog" aria-hidden="true" aria-label="Chat with Prathamesh AI">
+      <!-- Header -->
+      <div class="chatbot-header">
+        <div class="chatbot-header-info">
+          <div class="chatbot-avatar-wrap">
+            <img src="assets/images/profile.jpg" alt="Prathamesh Fatangade" class="chatbot-avatar-img">
+            <span class="chatbot-status-dot" title="Online"></span>
+          </div>
+          <div>
+            <h3 class="chatbot-title">Prathamesh AI</h3>
+            <p class="chatbot-status-text"><span class="status-indicator"></span> Active &bull; Portfolio Intelligence</p>
+          </div>
+        </div>
+        <div class="chatbot-header-actions">
+          <button class="chatbot-action-btn" id="chatbotClearBtn" aria-label="Clear chat conversation" title="Clear chat">
+            <i class="fas fa-redo-alt"></i>
+          </button>
+          <button class="chatbot-action-btn" id="chatbotCloseBtn" aria-label="Close chat window" title="Close chat">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Suggestion Chips Container -->
+      <div class="chatbot-chips-wrap">
+        <span class="chips-label"><i class="fas fa-bolt"></i> Quick Prompts:</span>
+        <div class="chatbot-chips" id="chatbotChips">
+          <button type="button" class="chat-chip" data-query="Tell me about your IJIRT research paper">🔬 IJIRT Research</button>
+          <button type="button" class="chat-chip" data-query="What is your Stock and Forex trading experience?">📈 4+ Yrs Trading</button>
+          <button type="button" class="chat-chip" data-query="What are your technical skills and tech stack?">💻 Skills &amp; Stack</button>
+          <button type="button" class="chat-chip" data-query="Show me your top projects">🚀 Top Projects</button>
+          <button type="button" class="chat-chip" data-query="Tell me about your education and degree">🎓 Education</button>
+          <button type="button" class="chat-chip" data-query="What certifications do you have?">📜 Certificates</button>
+          <button type="button" class="chat-chip" data-query="How can I contact Prathamesh?">📬 Contact Info</button>
+          <button type="button" class="chat-chip" data-query="Can I download your resume?">📄 Get Resume</button>
+        </div>
+      </div>
+
+      <!-- Messages Stream -->
+      <div class="chatbot-messages" id="chatbotMessages" role="log" aria-live="polite">
+        <!-- Default Welcome Message -->
+        <div class="chat-message bot-message">
+          <div class="chat-msg-avatar">
+            <i class="fas fa-robot"></i>
+          </div>
+          <div class="chat-msg-bubble">
+            <p>Hello! Welcome to Prathamesh Fatangade's portfolio. 👋</p>
+            <p>I'm his interactive <strong>AI Assistant</strong>. Ask me anything about his:</p>
+            <ul>
+              <li><strong>Published IJIRT Research Paper</strong> on IoT &amp; Edge AI Agricultural Robotics</li>
+              <li><strong>4+ Years Trading Journey</strong> in Indian Equities (NSE/BSE) &amp; Forex</li>
+              <li><strong>M.Sc. Computer Science</strong> education at MIT ACSC Pune</li>
+              <li>Featured <strong>Projects</strong>, <strong>Technical Skills</strong>, or <strong>Direct Contact</strong></li>
+            </ul>
+            <p class="chat-msg-hint">Click any quick prompt above or type a question below!</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Typing Indicator Template -->
+      <div class="chat-typing" id="chatTyping" style="display: none;">
+        <div class="chat-msg-avatar"><i class="fas fa-robot"></i></div>
+        <div class="typing-bubble">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+      </div>
+
+      <!-- Input Form -->
+      <form class="chatbot-form" id="chatbotForm">
+        <input type="text" id="chatbotInput" class="chatbot-input" placeholder="Ask a question about Prathamesh..." autocomplete="off" aria-label="Ask Prathamesh AI">
+        <button type="submit" class="chatbot-send-btn" id="chatbotSendBtn" aria-label="Send message" title="Send message">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </form>
+    </div>
+  </aside>
+
+  <!-- ============================================================
+       SECTION 13: COOKIE & ANALYTICS PRIVACY CONSENT BANNER
+       GDPR, UK & Swiss Compliant (Checklist Item 12)
+       ============================================================ -->
+  <aside id="cookieConsentBanner" class="cookie-banner" role="region" aria-label="Privacy &amp; Cookie Consent" style="display: none;">
+    <div class="cookie-banner-content">
+      <div class="cookie-banner-icon">
+        <i class="fas fa-shield-alt"></i>
+      </div>
+      <div class="cookie-banner-text">
+        <p class="cookie-banner-heading">Privacy &amp; Analytics Notice</p>
+        <p class="cookie-banner-desc">
+          This portfolio respects your privacy. We use anonymous aggregated telemetry (Google Analytics 4) to gauge interest in open-source research without cross-site profiling. Read our <a href="privacy-policy.html">Privacy Policy</a>.
+        </p>
+      </div>
+      <div class="cookie-banner-actions">
+        <button id="acceptCookiesBtn" class="btn btn-sm btn-primary">Accept All</button>
+        <button id="declineCookiesBtn" class="btn btn-sm btn-outline">Decline</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- JavaScript -->
+  <script src="js/script.js"></script>
+</body>
+</html>

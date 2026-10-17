@@ -36,6 +36,13 @@
 </head>
 <body>
 
+  <!-- Full-Screen Interactive Ambient Background Canvas (Active across all pages) -->
+  <canvas id="ambientCanvas" class="ambient-canvas" aria-hidden="true"></canvas>
+
+  <!-- Luxury Interactive Cursor & Magnetic Glow Follower (Auto-hidden on touch) -->
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
   <!-- ============================================================
        SECTION 1: INTRO ANIMATION
        Cinematic loading screen with monogram and progress bar.
@@ -427,22 +434,27 @@
         <p class="section-subtitle">4+ Years of active disciplined execution across Indian Equities and Global Forex markets</p>
       </div>
 
-      <!-- Stat Highlights -->
+      <!-- Stat Highlights with Live Radar Beacon & Dynamic Counters -->
       <div class="market-stats-row reveal">
-        <div class="market-stat-tile">
-          <div class="stat-val">4+</div>
+        <div class="market-stat-tile card-3d">
+          <div class="stat-live-beacon" title="Active Market Operations">
+            <span class="beacon-dot"></span>
+            <span class="beacon-pulse"></span>
+            <span class="beacon-text">LIVE DISCIPLINE</span>
+          </div>
+          <div class="stat-val"><span class="stat-counter" data-target="4">4</span><span class="stat-suffix">+</span></div>
           <div class="stat-desc">Years Active Market Experience</div>
         </div>
-        <div class="market-stat-tile">
-          <div class="stat-val">2</div>
+        <div class="market-stat-tile card-3d">
+          <div class="stat-val"><span class="stat-counter" data-target="2">2</span></div>
           <div class="stat-desc">Core Domains: NSE/BSE &amp; Forex</div>
         </div>
-        <div class="market-stat-tile">
-          <div class="stat-val">1:2+</div>
+        <div class="market-stat-tile card-3d">
+          <div class="stat-val">1:<span class="stat-counter" data-target="2">2</span>+</div>
           <div class="stat-desc">Risk-to-Reward Execution</div>
         </div>
-        <div class="market-stat-tile">
-          <div class="stat-val"><i class="fas fa-brain" style="font-size: 2.2rem; color: var(--accent-red);"></i></div>
+        <div class="market-stat-tile card-3d">
+          <div class="stat-val"><i class="fas fa-brain brain-pulse-icon"></i></div>
           <div class="stat-desc">Quant &amp; Data-Driven Analytics</div>
         </div>
       </div>
@@ -808,7 +820,7 @@
       <div class="research-featured-box reveal">
         <div class="research-badge-row">
           <span class="badge-journal"><i class="fas fa-award"></i> IJIRT International Journal</span>
-          <span class="badge-impact"><i class="fas fa-star"></i> Impact Factor: 8.412</span>
+          <span class="badge-impact"><i class="fas fa-star"></i> Impact Factor: <span class="stat-counter-float" data-target="8.412" data-decimals="3">8.412</span></span>
           <span class="badge-meta">ISSN: 2349-6002</span>
           <span class="badge-meta">Volume 13, Issue 5 &bull; October 2026</span>
           <span class="badge-meta">Registration ID: 209192</span>

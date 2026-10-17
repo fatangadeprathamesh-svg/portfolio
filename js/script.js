@@ -1638,6 +1638,236 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // ============================================================
+  // 12. FULL WEBSITE CONTINUOUS ANIMATIONS & INTERACTIVE PHYSICS
+  // ============================================================
+
+  // --- A. PERSISTENT AMBIENT BACKGROUND CANVAS ---
+  const ambientCanvas = document.getElementById('ambientCanvas');
+  if (ambientCanvas && !prefersReducedMotion) {
+    const actx = ambientCanvas.getContext('2d');
+    let aWidth = ambientCanvas.width = window.innerWidth;
+    let aHeight = ambientCanvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      aWidth = ambientCanvas.width = window.innerWidth;
+      aHeight = ambientCanvas.height = window.innerHeight;
+    });
+
+    const ambientCount = 38;
+    const ambientParticles = Array.from({ length: ambientCount }, () => ({
+      x: Math.random() * aWidth,
+      y: Math.random() * aHeight,
+      vx: (Math.random() - 0.5) * 0.45,
+      vy: (Math.random() - 0.5) * 0.45,
+      radius: Math.random() * 2.5 + 1.2,
+      color: Math.random() > 0.4 ? 'rgba(127, 1, 31, 0.4)' : 'rgba(245, 235, 208, 0.35)',
+      pulseSpeed: Math.random() * 0.02 + 0.01,
+      pulsePhase: Math.random() * Math.PI * 2
+    }));
+
+    let mouseAmbX = aWidth / 2;
+    let mouseAmbY = aHeight / 2;
+
+    window.addEventListener('mousemove', (e) => {
+      mouseAmbX = e.clientX;
+      mouseAmbY = e.clientY;
+    });
+
+    function renderAmbientBackground() {
+      actx.clearRect(0, 0, aWidth, aHeight);
+
+      // Connect nearby particles with subtle ethereal filaments
+      for (let i = 0; i < ambientParticles.length; i++) {
+        const p1 = ambientParticles[i];
+        p1.x += p1.vx;
+        p1.y += p1.vy;
+        p1.pulsePhase += p1.pulseSpeed;
+
+        if (p1.x < -20) p1.x = aWidth + 20;
+        if (p1.x > aWidth + 20) p1.x = -20;
+        if (p1.y < -20) p1.y = aHeight + 20;
+        if (p1.y > aHeight + 20) p1.y = -20;
+
+        // Draw particle node
+        const currentAlpha = 0.25 + Math.sin(p1.pulsePhase) * 0.15;
+        actx.beginPath();
+        actx.arc(p1.x, p1.y, p1.radius, 0, Math.PI * 2);
+        actx.fillStyle = p1.color;
+        actx.globalAlpha = currentAlpha;
+        actx.fill();
+
+        for (let j = i + 1; j < ambientParticles.length; j++) {
+          const p2 = ambientParticles[j];
+          const dx = p1.x - p2.x;
+          const dy = p1.y - p2.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 110) {
+            actx.beginPath();
+            actx.moveTo(p1.x, p1.y);
+            actx.lineTo(p2.x, p2.y);
+            actx.strokeStyle = 'rgba(245, 235, 208, 0.12)';
+            actx.globalAlpha = (1 - dist / 110) * 0.2;
+            actx.lineWidth = 0.7;
+            actx.stroke();
+          }
+        }
+      }
+
+      actx.globalAlpha = 1;
+      requestAnimationFrame(renderAmbientBackground);
+    }
+    renderAmbientBackground();
+  }
+
+  // --- B. LUXURY CUSTOM INTERACTIVE CURSOR & MAGNETIC FOLLOWER ---
+  const cursorDot = document.getElementById('cursorDot');
+  const cursorGlow = document.getElementById('cursorGlow');
+  const isTouch = window.matchMedia('(pointer: coarse)').matches;
+
+  if (cursorDot && cursorGlow && !isTouch && !prefersReducedMotion) {
+    let mouseX = -100, mouseY = -100;
+    let dotX = -100, dotY = -100;
+    let ringX = -100, ringY = -100;
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    function updateCustomCursor() {
+      // Lerp positions
+      dotX += (mouseX - dotX) * 0.45;
+      dotY += (mouseY - dotY) * 0.45;
+
+      ringX += (mouseX - ringX) * 0.16;
+      ringY += (mouseY - ringY) * 0.16;
+
+      cursorDot.style.left = `${dotX.toFixed(1)}px`;
+      cursorDot.style.top = `${dotY.toFixed(1)}px`;
+
+      cursorGlow.style.left = `${ringX.toFixed(1)}px`;
+      cursorGlow.style.top = `${ringY.toFixed(1)}px`;
+
+      requestAnimationFrame(updateCustomCursor);
+    }
+    updateCustomCursor();
+
+    // Hover state expansion over interactive items
+    const hoverTargets = document.querySelectorAll('a, button, input, textarea, .card-3d, .project-card, .market-stat-tile, .cert-card, .faq-item, .chat-chip');
+    hoverTargets.forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursorDot.classList.add('cursor-hover');
+        cursorGlow.classList.add('cursor-hover');
+      });
+      el.addEventListener('mouseleave', () => {
+        cursorDot.classList.remove('cursor-hover');
+        cursorGlow.classList.remove('cursor-hover');
+      });
+    });
+  }
+
+  // --- C. MAGNETIC BUTTON PHYSICS ---
+  if (!isTouch && !prefersReducedMotion) {
+    const magneticBtns = document.querySelectorAll('.btn-primary, .btn-secondary, .nav-resume-btn, .theme-toggle, .chatbot-trigger');
+    magneticBtns.forEach(btn => {
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        btn.style.transform = `translate(${(x * 0.28).toFixed(1)}px, ${(y * 0.28).toFixed(1)}px)`;
+      });
+
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transform = 'translate(0px, 0px)';
+      });
+    });
+  }
+
+  // --- D. DYNAMIC ANIMATED NUMBER COUNTERS FOR STATS ---
+  const counters = document.querySelectorAll('.stat-counter');
+  const floatCounters = document.querySelectorAll('.stat-counter-float');
+
+  function animateIntegerCounter(el) {
+    const target = parseInt(el.getAttribute('data-target'), 10);
+    if (isNaN(target)) return;
+    const duration = 1800; // ms
+    const startTime = performance.now();
+
+    function step(currentTime) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease-out cubic
+      const ease = 1 - Math.pow(1 - progress, 3);
+      const current = Math.floor(ease * target);
+      el.textContent = current;
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        el.textContent = target;
+      }
+    }
+    requestAnimationFrame(step);
+  }
+
+  function animateFloatCounter(el) {
+    const target = parseFloat(el.getAttribute('data-target'));
+    const decimals = parseInt(el.getAttribute('data-decimals') || '3', 10);
+    if (isNaN(target)) return;
+    const duration = 2200; // ms
+    const startTime = performance.now();
+
+    function step(currentTime) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease-out cubic
+      const ease = 1 - Math.pow(1 - progress, 3);
+      const current = (ease * target).toFixed(decimals);
+      el.textContent = current;
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        el.textContent = target.toFixed(decimals);
+      }
+    }
+    requestAnimationFrame(step);
+  }
+
+  // IntersectionObserver to start counting when scrolled into view
+  let countersAnimated = false;
+  const statsSection = document.querySelector('.market-stats-row');
+  if (statsSection) {
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !countersAnimated) {
+          countersAnimated = true;
+          counters.forEach(c => animateIntegerCounter(c));
+          counterObserver.disconnect();
+        }
+      });
+    }, { threshold: 0.2 });
+    counterObserver.observe(statsSection);
+  }
+
+  let floatCountersAnimated = false;
+  const researchBox = document.querySelector('.research-featured-box');
+  if (researchBox) {
+    const floatObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !floatCountersAnimated) {
+          floatCountersAnimated = true;
+          floatCounters.forEach(c => animateFloatCounter(c));
+          floatObserver.disconnect();
+        }
+      });
+    }, { threshold: 0.2 });
+    floatObserver.observe(researchBox);
+  }
+
 });
+
 
 

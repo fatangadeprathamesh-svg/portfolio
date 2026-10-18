@@ -54,13 +54,13 @@ document.addEventListener('DOMContentLoaded', () => {
       demo: "#"
     },
     {
-      title: "Personal Portfolio Website — Luxury Editorial Edition",
-      subtitle: "HTML5 &bull; CSS3 &bull; Vanilla JS &bull; Wine Red &bull; Light Sand",
-      tags: ["HTML5", "CSS3", "JavaScript", "Spotlight Search", "3D Physics", "AI Chatbot"],
-      description: "A bespoke, luxury developer portfolio designed around Wine Red (#7F011F) and Light Sand (#F5EBD0) aesthetics. Features an instant keyboard-driven spotlight search engine, spring-lerped 3D card tilt physics, 3D canvas starfield tunnel, dynamic printable resume generator, and an integrated interactive AI portfolio assistant.",
+      title: "Personal Portfolio Website — Luxury Cyber Edition",
+      subtitle: "HTML5 &bull; CSS3 &bull; Vanilla JS &bull; Raspberry &bull; Pale Sky",
+      tags: ["HTML5", "CSS3", "JavaScript", "Responsive UI", "3D Physics", "AI Chatbot"],
+      description: "A bespoke developer portfolio designed around Raspberry (#5B3DF5) and Pale Sky (#E8DEFF) aesthetics. Features interactive categorized domain filtering, spring-lerped 3D card tilt physics, 3D canvas cosmic particle tunnel, dynamic printable resume generator, and an integrated interactive AI portfolio assistant.",
       features: [
         "Zero external JS framework dependencies — 100% pure vanilla performance",
-        "Instant spotlight search indexing projects, research, trading, and skills",
+        "Interactive domain filtering categorizing Edge AI, systems, and quant skills",
         "Spring-damped RequestAnimationFrame 3D parallax and dynamic specular glare",
         "Interactive AI knowledge assistant trained on verified academic and market experience"
       ],
@@ -78,8 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const loaderPercent = document.getElementById('loaderPercent');
   const introShockwave = document.getElementById('introShockwave');
   const skipIntro = document.getElementById('skipIntro');
-  const profileScreen = document.getElementById('profileScreen');
-  const profileCard = document.getElementById('profileCard');
   const mainContent = document.getElementById('mainContent');
   const navbar = document.getElementById('navbar');
   const hamburger = document.getElementById('hamburger');
@@ -108,6 +106,29 @@ document.addEventListener('DOMContentLoaded', () => {
   const themeToggle = document.getElementById('themeToggle');
   const mobileThemeToggle = document.getElementById('mobileThemeToggle');
 
+  // ============================================================
+  // THEME MANAGEMENT (System Preference + Auto-Update + LocalStorage)
+  // ============================================================
+  const THEME_STORAGE_KEY = 'portfolio_theme_preference';
+  const systemDarkMedia = window.matchMedia('(prefers-color-scheme: dark)');
+
+  function getSystemTheme() {
+    return systemDarkMedia.matches ? 'dark' : 'light';
+  }
+
+  function getActiveTheme() {
+    try {
+      const storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+      if (storedTheme === 'dark' || storedTheme === 'light') {
+        return storedTheme;
+      }
+    } catch (e) {
+      console.warn('Could not read theme from localStorage:', e);
+    }
+    // Default to user's OS/desktop preference
+    return getSystemTheme();
+  }
+
   function updateThemeUI(theme) {
     const isLight = theme === 'light';
     const iconClass = isLight ? 'fa-moon' : 'fa-sun';
@@ -120,6 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
         icon.className = `fas ${iconClass}`;
       }
       btn.setAttribute('title', titleText);
+      btn.setAttribute('aria-label', titleText);
       const span = btn.querySelector('span');
       if (span) {
         span.textContent = isLight ? 'Dark Mode' : 'Light Mode';
@@ -127,62 +149,100 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function applyTheme(theme) {
+  function applyTheme(theme, isManual = false) {
     document.documentElement.setAttribute('data-theme', theme);
     updateThemeUI(theme);
+
+    if (isManual) {
+      try {
+        localStorage.setItem(THEME_STORAGE_KEY, theme);
+      } catch (e) {
+        console.warn('Could not save theme to localStorage:', e);
+      }
+    }
   }
 
   function toggleTheme() {
-    const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+    const currentTheme = document.documentElement.getAttribute('data-theme') || getActiveTheme();
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    applyTheme(newTheme);
+    applyTheme(newTheme, true); // persist manual toggle in localStorage
   }
 
-  // Initial theme (default dark, can follow system if preferred)
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-  applyTheme('dark');
+  // 1. Detect system theme on load (respecting stored manual preference if present)
+  const initialTheme = getActiveTheme();
+  applyTheme(initialTheme, false);
+
+  // 2. Update automatically when the OS theme changes
+  systemDarkMedia.addEventListener('change', (e) => {
+    // If user hasn't explicitly chosen a manual override in localStorage, follow OS
+    const storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+    if (!storedTheme) {
+      const newSystemTheme = e.matches ? 'dark' : 'light';
+      applyTheme(newSystemTheme, false);
+    }
+  });
 
   if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
   if (mobileThemeToggle) mobileThemeToggle.addEventListener('click', toggleTheme);
 
   // ============================================================
-  // 1. INTRO & PROFILE SCREEN TRANSITIONS
+  // 1. ALL-NEW CINEMATIC ANIMATED INTRO SCREEN
   // ============================================================
-  function enterProfileScreen() {
+  const introEnterBtn = document.getElementById('introEnterBtn');
+  const loaderStatusText = document.getElementById('loaderStatusText');
+  const introDynamicRole = document.getElementById('introDynamicRole');
+
+  let introExited = false;
+  function enterMainPortfolio() {
+    if (introExited) return;
+    introExited = true;
+
     if (introScreen) {
       introScreen.classList.add('zoom-exit');
       setTimeout(() => {
         introScreen.classList.add('screen-hidden');
-        if (profileScreen) {
-          profileScreen.classList.remove('screen-hidden');
-        }
-      }, 650);
-    }
-  }
-
-  function enterMainPortfolio() {
-    if (profileScreen) {
-      profileScreen.classList.add('fade-out');
-      setTimeout(() => {
-        profileScreen.classList.add('screen-hidden');
         if (mainContent) {
           mainContent.classList.remove('screen-hidden');
           initScrollReveals();
         }
-      }, 500);
+      }, 550);
     }
   }
 
   // Handle Reduced Motion or normal intro
   if (prefersReducedMotion) {
     if (introScreen) introScreen.classList.add('screen-hidden');
-    if (profileScreen) profileScreen.classList.add('screen-hidden');
     if (mainContent) {
       mainContent.classList.remove('screen-hidden');
       initScrollReveals();
     }
   } else {
-    // Setup 3D Starfield & Ember Tunnel Particle System for Intro Screen
+    // Dynamic Role Rotation
+    const introRoles = [
+      "Edge AI & Robotics Researcher",
+      "Quantitative Financial Trader (NSE / BSE & FX)",
+      "M.Sc. Computer Science Post-Graduate",
+      "Autonomous IoT & Systems Engineer"
+    ];
+    let currentRoleIdx = 0;
+    const roleInterval = setInterval(() => {
+      if (introExited || !introDynamicRole) {
+        clearInterval(roleInterval);
+        return;
+      }
+      currentRoleIdx = (currentRoleIdx + 1) % introRoles.length;
+      introDynamicRole.style.opacity = '0';
+      introDynamicRole.style.transform = 'translateY(-6px)';
+      setTimeout(() => {
+        if (introDynamicRole) {
+          introDynamicRole.textContent = introRoles[currentRoleIdx];
+          introDynamicRole.style.opacity = '1';
+          introDynamicRole.style.transform = 'translateY(0)';
+        }
+      }, 250);
+    }, 2200);
+
+    // Setup 3D Cosmic Particle System for Intro Screen
     const introCanvas = document.getElementById('introParticles');
     let particlesRunning = true;
     if (introCanvas) {
@@ -196,14 +256,14 @@ document.addEventListener('DOMContentLoaded', () => {
         height = introCanvas.height = window.innerHeight;
       });
 
-      const numParticles = 65;
+      const numParticles = 75;
       const particles = Array.from({ length: numParticles }, () => ({
         x: (Math.random() - 0.5) * width * 1.6,
         y: (Math.random() - 0.5) * height * 1.6,
         z: Math.random() * 850 + 40,
         radius: Math.random() * 2.2 + 0.8,
-        color: Math.random() > 0.4 ? '#7F011F' : (Math.random() > 0.5 ? '#F5EBD0' : '#FFFFFF'),
-        speed: Math.random() * 2.8 + 1.2
+        color: Math.random() > 0.45 ? '#5B3DF5' : (Math.random() > 0.5 ? '#E8DEFF' : '#FFFFFF'),
+        speed: Math.random() * 2.6 + 1.2
       }));
 
       let mouse3DX = 0;
@@ -211,8 +271,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       window.addEventListener('mousemove', (e) => {
         if (!particlesRunning) return;
-        mouse3DX = (e.clientX - width / 2) * 0.15;
-        mouse3DY = (e.clientY - height / 2) * 0.15;
+        mouse3DX = (e.clientX - width / 2) * 0.12;
+        mouse3DY = (e.clientY - height / 2) * 0.12;
       });
 
       function renderParticles() {
@@ -257,7 +317,7 @@ document.addEventListener('DOMContentLoaded', () => {
               ctx.beginPath();
               ctx.moveTo(projected[i].px, projected[i].py);
               ctx.lineTo(projected[j].px, projected[j].py);
-              ctx.strokeStyle = '#F5EBD0';
+              ctx.strokeStyle = '#E8DEFF';
               ctx.globalAlpha = (1 - dist / 65) * 0.16 * Math.min(projected[i].alpha, projected[j].alpha);
               ctx.lineWidth = 0.7;
               ctx.stroke();
@@ -271,44 +331,58 @@ document.addEventListener('DOMContentLoaded', () => {
       renderParticles();
     }
 
-    // Animate loader bar & percentage (extended by +1s for cinematic pacing, 42ms)
+    // Dynamic Quantum Energy Loader & Status Ticker
     let progress = 0;
     const interval = setInterval(() => {
+      if (introExited) {
+        clearInterval(interval);
+        return;
+      }
       progress += 1;
       if (loaderBar) loaderBar.style.width = progress + '%';
       if (loaderPercent) loaderPercent.textContent = progress + '%';
 
-      // Trigger shockwave pulse at 52%
-      if (progress === 52 && introShockwave) {
+      // Dynamic Status Text
+      if (loaderStatusText) {
+        if (progress < 25) {
+          loaderStatusText.textContent = "Initializing Quantum Core...";
+        } else if (progress < 55) {
+          loaderStatusText.textContent = "Calibrating Neural Vision & Edge AI...";
+        } else if (progress < 80) {
+          loaderStatusText.textContent = "Synchronizing Market Telemetry & Code...";
+        } else if (progress < 100) {
+          loaderStatusText.textContent = "Systems Optimized & Verified...";
+        } else {
+          loaderStatusText.textContent = "Welcome to Portfolio!";
+        }
+      }
+
+      // Trigger shockwave pulse at 50% and 98%
+      if ((progress === 50 || progress === 98) && introShockwave) {
+        introShockwave.classList.remove('fire');
+        void introShockwave.offsetWidth; // retrigger reflow
         introShockwave.classList.add('fire');
       }
 
       if (progress >= 100) {
         clearInterval(interval);
         particlesRunning = false;
-        setTimeout(enterProfileScreen, 500);
+        setTimeout(enterMainPortfolio, 550);
       }
-    }, 42);
+    }, 40);
 
-    // Skip Intro Button
+    // Skip Intro & Enter Button Listeners
     if (skipIntro) {
       skipIntro.addEventListener('click', () => {
         clearInterval(interval);
-        enterProfileScreen();
+        enterMainPortfolio();
       });
     }
 
-    // Profile Card Selection
-    if (profileCard) {
-      profileCard.addEventListener('click', () => {
+    if (introEnterBtn) {
+      introEnterBtn.addEventListener('click', () => {
+        clearInterval(interval);
         enterMainPortfolio();
-      });
-      // Keyboard support (Enter / Space)
-      profileCard.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          enterMainPortfolio();
-        }
       });
     }
   }
@@ -456,177 +530,36 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ============================================================
-  // 5. SPOTLIGHT LIVE SEARCH & PROJECT FILTER ENGINE
   // ============================================================
-  const globalSearchInput = document.getElementById('globalSearchInput');
-  const mobileSearchInput = document.getElementById('mobileSearchInput');
-  const clearSearchBtn = document.getElementById('clearSearchBtn');
-  const searchResultsDropdown = document.getElementById('searchResultsDropdown');
+  // 5. PROJECT & SKILL CATEGORY FILTER ENGINES
+  // ============================================================
   const projectFilterBtns = document.querySelectorAll('.project-filter-btn');
+  const skillFilterBtns = document.querySelectorAll('.skill-filter-btn');
+  const skillCards = document.querySelectorAll('.skill-showcase-card');
 
-  // Search Knowledge Index
-  const portfolioIndex = [
-    // Projects
-    { title: "Smart Agriculture Robot with Edge AI", category: "Project", section: "projects", target: '[data-project="0"]', snippet: "Autonomous rover with IoT sensors and Edge CNN leaf disease detection. Published in IJIRT (IF 8.412).", tags: "agriculture robot edge cnn iot raspberry pi vaishali patil leaf disease autonomous" },
-    { title: "Quantitative Trading Backtester & Risk Engine", category: "Project", section: "projects", target: '[data-project="1"]', snippet: "Python quantitative engine modeling Price Action, Market Structure Shifts (MSS), and 1:2+ R:R risk bounds.", tags: "quantitative trading backtest python pandas numpy nse bse forex equity risk" },
-    { title: "Autonomous Object Following Robot", category: "Project", section: "projects", target: '[data-project="2"]', snippet: "Raspberry Pi 4B rover with OpenCV contour extraction and closed-loop PID velocity modulation.", tags: "object following robot raspberry pi opencv computer vision pid robotics" },
-    { title: "Personal Portfolio Website — Luxury Edition", category: "Project", section: "projects", target: '[data-project="3"]', snippet: "Bespoke Wine Red & Light Sand portfolio with spotlight search, 3D physics, and AI assistant.", tags: "portfolio website html5 css3 javascript wine red light sand spotlight search 3d" },
+  // Skill Domain Filter Handler
+  skillFilterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      skillFilterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
 
-    // Research
-    { title: "Smart Agriculture Robot Research Paper", category: "Research", section: "research", target: "#research", snippet: "Published in IJIRT (ISSN: 2349-6002, Impact Factor: 8.412, Vol 13 Issue 5, Reg ID: 209192).", tags: "ijirt research paper publication agricultural robot edge ai iot vaishali patil issn impact factor" },
-    { title: "Smart Innovations Book Chapter", category: "Research", section: "research", target: "#research", snippet: "Authored book chapter in 'Smart Innovations in Agriculture & Industry 4.0' (CRC Press / Taylor & Francis).", tags: "book chapter crc press taylor francis industry 4.0 smart innovations" },
-    { title: "Edge CNN Crop Disease Detection", category: "Research", section: "research", target: ".research-pillars-grid", snippet: "Lightweight convolutional neural network executing on-board Raspberry Pi for immediate field diagnosis.", tags: "cnn convolutional neural network disease leaf crop edge ai vision" },
-    { title: "Differential-Drive Agricultural Rover", category: "Research", section: "research", target: ".research-pillars-grid", snippet: "Sturdy multi-terrain chassis with ultrasonic obstacle avoidance and autonomous field traversal.", tags: "differential drive rover autonomous terrain obstacle avoidance" },
-
-    // Markets & Trading
-    { title: "4+ Years Market Execution Journey", category: "Trading", section: "markets", target: "#markets", snippet: "Over 4 years of active, disciplined trading across Indian Equities (NSE/BSE) and Global Forex.", tags: "market trading stock forex 4 years nse bse equity currency execution" },
-    { title: "Indian Equity Swing & Breakout Trading", category: "Trading", section: "markets", target: ".markets-grid", snippet: "Trading NSE/BSE stocks with Volume Profile, support/resistance, and institutional orderflow tracking.", tags: "indian stocks nse bse swing momentum breakout volume profile" },
-    { title: "Global Forex Currency Trading", category: "Trading", section: "markets", target: ".markets-grid", snippet: "Trading major pairs (EUR/USD, GBP/USD, USD/JPY) with London/New York session overlap timing.", tags: "forex currency eur usd gbp jpy london new york session" },
-    { title: "Quantitative Risk & Capital Preservation", category: "Trading", section: "markets", target: ".market-stats-row", snippet: "Strict asymmetric 1:2+ Risk-to-Reward ratio with 1-2% max capital risk per position.", tags: "risk management capital preservation position sizing risk reward drawdown" },
-
-    // Skills
-    { title: "Python Programming & Data Analytics", category: "Skill", section: "skills", target: "#skills", snippet: "Core language used across Edge AI, OpenCV computer vision, and quantitative backtesting.", tags: "python data analytics pandas numpy scripting" },
-    { title: "Edge AI, OpenCV & Computer Vision", category: "Skill", section: "skills", target: "#skills", snippet: "CNN deployment on edge hardware (Raspberry Pi 4B, ESP32) with real-time video processing.", tags: "edge ai opencv computer vision cnn raspberry pi esp32" },
-    { title: "Full-Stack Web Technologies & NoSQL", category: "Skill", section: "skills", target: "#skills", snippet: "Modern HTML5, CSS3, JavaScript ES6+, Flask, MongoDB (NoSQL), and SQL database systems.", tags: "web html css javascript flask mongodb nosql sql" },
-    { title: "Hardware Prototyping & IoT Telemetry", category: "Skill", section: "skills", target: "#skills", snippet: "Sensor interfacing (DHT22, soil moisture, ultrasonic), motor drivers, and serial protocols.", tags: "hardware iot sensors telemetry dht22 soil moisture esp32" },
-
-    // Certificates
-    { title: "IJIRT International Publication Certificate", category: "Certificate", section: "certificates", target: "#certificates", snippet: "Official credential for published research (Reg ID: 209192, Impact Factor: 8.412).", tags: "ijirt certificate publication credential research paper" },
-    { title: "Generative AI & Prompt Engineering (Outskill)", category: "Certificate", section: "certificates", target: "#certificates", snippet: "Industry credential in LLM workflow architecture and advanced prompt design.", tags: "outskill generative ai prompt engineering llm certification" },
-    { title: "Cloud Security Fundamentals (Simplilearn)", category: "Certificate", section: "certificates", target: "#certificates", snippet: "SkillUp certification covering cloud infrastructure, IAM security, and encryption.", tags: "simplilearn cloud security skillup certification iam" },
-
-    // Contact
-    { title: "Email Prathamesh (fatangadeprathamesh@gmail.com)", category: "Contact", section: "contact", target: "#contact", snippet: "Direct email contact for software engineering, robotics, or research inquiries.", tags: "email contact gmail fatangadeprathamesh message hire" },
-    { title: "GitHub Profile (fatangadeprathamesh-svg)", category: "Contact", section: "contact", target: "#contact", snippet: "Explore open-source repositories and robotics/quant projects on GitHub.", tags: "github profile repositories code git" },
-
-    // FAQ & Reviews (Checklist Trust Items)
-    { title: "Frequently Asked Questions (FAQ)", category: "FAQ", section: "faq", target: "#faq", snippet: "Answers regarding Edge AI research, algorithmic trading, IJIRT paper verification, and hiring.", tags: "faq questions answers edge ai quant trading research collaboration hire" },
-    { title: "Academic Endorsements & Peer Reviews", category: "Reviews", section: "endorsements", target: "#endorsements", snippet: "Verified academic reviews by Dr. Vaishali Patil (MIT ACSC Pune) and quantitative technical evaluators.", tags: "reviews testimonials endorsements vaishali patil evaluation recommendations" }
-  ];
-
-  function runSpotlightSearch(query) {
-    if (!searchResultsDropdown) return;
-    const cleanQ = query.trim().toLowerCase();
-
-    if (!cleanQ) {
-      searchResultsDropdown.style.display = 'none';
-      searchResultsDropdown.innerHTML = '';
-      if (clearSearchBtn) clearSearchBtn.style.display = 'none';
-      return;
-    }
-
-    if (clearSearchBtn) clearSearchBtn.style.display = 'block';
-
-    const words = cleanQ.split(/\s+/).filter(Boolean);
-    const matches = portfolioIndex.filter(item => {
-      const fullText = `${item.title} ${item.snippet} ${item.tags} ${item.category}`.toLowerCase();
-      return words.every(w => fullText.includes(w));
-    });
-
-    if (matches.length === 0) {
-      searchResultsDropdown.innerHTML = `
-        <div class="search-empty">
-          <i class="fas fa-search" style="font-size: 1.6rem; color: var(--accent-sand); opacity: 0.5; margin-bottom: 8px; display: block;"></i>
-          No matches found for "<strong>${escapeHTML(query)}</strong>".<br>
-          <span style="font-size: 0.78rem; color: var(--text-muted);">Try searching for: Python, Research, Forex, Robot, IJIRT, or Skills.</span>
-        </div>
-      `;
-      searchResultsDropdown.style.display = 'flex';
-      return;
-    }
-
-    // Group by category
-    const grouped = {};
-    matches.forEach(item => {
-      if (!grouped[item.category]) grouped[item.category] = [];
-      grouped[item.category].push(item);
-    });
-
-    let html = '';
-    for (const [cat, items] of Object.entries(grouped)) {
-      html += `<div class="search-result-group-title">${cat}</div>`;
-      items.forEach(item => {
-        let highlightedTitle = escapeHTML(item.title);
-        words.forEach(w => {
-          const regex = new RegExp(`(${w})`, 'gi');
-          highlightedTitle = highlightedTitle.replace(regex, '<span class="search-highlight">$1</span>');
-        });
-
-        html += `
-          <div class="search-result-item" data-target="${item.target}">
-            <div class="search-result-info">
-              <span class="search-result-title">${highlightedTitle}</span>
-              <span class="search-result-snippet">${item.snippet}</span>
-            </div>
-            <span class="search-result-badge">${item.category}</span>
-          </div>
-        `;
-      });
-    }
-
-    searchResultsDropdown.innerHTML = html;
-    searchResultsDropdown.style.display = 'flex';
-
-    // Click handler on results
-    searchResultsDropdown.querySelectorAll('.search-result-item').forEach(el => {
-      el.addEventListener('click', () => {
-        const targetSel = el.getAttribute('data-target');
-        searchResultsDropdown.style.display = 'none';
-        if (globalSearchInput) globalSearchInput.value = '';
-        if (mobileSearchInput) mobileSearchInput.value = '';
-        if (clearSearchBtn) clearSearchBtn.style.display = 'none';
-
-        if (targetSel) {
-          const targetEl = document.querySelector(targetSel);
-          if (targetEl) {
-            targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            targetEl.classList.remove('search-target-highlight');
-            void targetEl.offsetWidth; // trigger reflow
-            targetEl.classList.add('search-target-highlight');
-          }
+      const filter = btn.getAttribute('data-filter');
+      skillCards.forEach(card => {
+        const cat = card.getAttribute('data-category');
+        if (filter === 'all' || cat === filter) {
+          card.style.display = 'flex';
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(12px)';
+          requestAnimationFrame(() => {
+            card.style.transition = 'opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), transform 0.35s cubic-bezier(0.4, 0, 0.2, 1)';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+          });
+        } else {
+          card.style.display = 'none';
         }
       });
     });
-  }
-
-  if (globalSearchInput) {
-    globalSearchInput.addEventListener('input', (e) => runSpotlightSearch(e.target.value));
-    globalSearchInput.addEventListener('focus', () => {
-      if (globalSearchInput.value.trim()) runSpotlightSearch(globalSearchInput.value);
-    });
-  }
-
-  if (mobileSearchInput) {
-    mobileSearchInput.addEventListener('input', (e) => runSpotlightSearch(e.target.value));
-  }
-
-  if (clearSearchBtn) {
-    clearSearchBtn.addEventListener('click', () => {
-      if (globalSearchInput) globalSearchInput.value = '';
-      if (mobileSearchInput) mobileSearchInput.value = '';
-      runSpotlightSearch('');
-    });
-  }
-
-  // Keyboard shortcut: Press "/" to focus search anywhere on page
-  window.addEventListener('keydown', (e) => {
-    if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
-      e.preventDefault();
-      if (globalSearchInput) {
-        globalSearchInput.focus();
-        globalSearchInput.select();
-      }
-    } else if (e.key === 'Escape' && searchResultsDropdown) {
-      searchResultsDropdown.style.display = 'none';
-      if (globalSearchInput) globalSearchInput.blur();
-    }
-  });
-
-  // Close search on click outside
-  document.addEventListener('click', (e) => {
-    if (!e.target.closest('.nav-search-wrap')) {
-      if (searchResultsDropdown) searchResultsDropdown.style.display = 'none';
-    }
   });
 
   // Project Category Filter Handler
@@ -651,122 +584,21 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ============================================================
-  // 6. RESUME DOWNLOAD GENERATOR
+  // 6. RESUME DOWNLOAD HANDLER (Official Uploaded PDF Resume)
   // ============================================================
   function triggerResumeDownload() {
-    const resumeHTML = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Prathamesh Fatangade — Resume</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; color: #1a1a2e; max-width: 760px; margin: 0 auto; padding: 36px 30px; line-height: 1.55; font-size: 13px; }
-    h1 { font-size: 26px; color: #0a0a14; margin-bottom: 3px; font-weight: 800; }
-    .subtitle { font-size: 13.5px; color: #7F011F; font-weight: 700; margin-bottom: 10px; }
-    .header-links { font-size: 12px; color: #4b5563; margin-bottom: 16px; border-bottom: 1px solid #e5e7eb; padding-bottom: 10px; }
-    h2 { font-size: 14px; text-transform: uppercase; letter-spacing: 1.2px; color: #7F011F; border-bottom: 2px solid #F5EBD0; padding-bottom: 3px; margin: 18px 0 8px; font-weight: 700; }
-    h3 { font-size: 13px; font-weight: 700; color: #111; margin-bottom: 2px; }
-    .org-line { font-size: 12px; color: #6b7280; margin-bottom: 4px; font-weight: 500; }
-    p, li { color: #374151; font-size: 12.5px; }
-    ul { list-style: square; padding-left: 18px; margin-bottom: 6px; }
-    .item-block { margin-bottom: 12px; }
-    .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; }
-    .tag { background: #FAF5E8; color: #7F011F; border: 1px solid #F5EBD0; padding: 2px 7px; border-radius: 4px; font-size: 11px; font-weight: 600; }
-    @media print { body { padding: 15px; } }
-  </style>
-</head>
-<body>
-  <h1>Prathamesh Fatangade</h1>
-  <p class="subtitle" style="color: #7F011F;">Computer Science Post-Graduate &bull; Software Developer &bull; Quantitative Market Trader</p>
-  <div class="header-links">
-    Maharashtra, India &bull; Email: fatangadeprathamesh@gmail.com &bull; GitHub: https://github.com/fatangadeprathamesh-svg
-  </div>
-
-  <h2 style="color: #7F011F; border-bottom-color: #F5EBD0;">Professional Summary</h2>
-  <p>Driven Computer Science student (pursuing M.Sc.) and published researcher with technical project expertise in Edge AI, IoT-driven robotics, and full-stack software development. Additionally, possesses 4+ years of active, disciplined trading experience in Indian Equities (NSE/BSE) and Global Forex Markets with strong risk-management and quantitative analysis foundations.</p>
-
-  <h2 style="color: #7F011F; border-bottom-color: #F5EBD0;">Education</h2>
-  <div class="item-block">
-    <h3>M.Sc. in Computer Science (Pursuing)</h3>
-    <p class="org-line">MAEER’s MIT Arts, Commerce and Science College, Alandi (D), Pune, Maharashtra</p>
-    <p>Coursework: Web Technologies, NoSQL Databases, Python Programming, Discrete Mathematics, Research Methodology, Cloud Security &amp; AI Systems.</p>
-  </div>
-
-  <h2 style="color: #7F011F; border-bottom-color: #F5EBD0;">Published Research &amp; Academic Contributions</h2>
-  <div class="item-block">
-    <h3>"Smart Agriculture Robot for Crop Monitoring Using IoT Sensing, Autonomous Navigation and Edge AI"</h3>
-    <p class="org-line">Published in International Journal of Innovative Research in Technology (IJIRT) &bull; ISSN: 2349-6002 &bull; Impact Factor: 8.412</p>
-    <p>Volume 13 Issue 5, October 2026 &bull; Registration ID: 209192</p>
-    <p>Authored research presenting an autonomous agricultural ground robot with differential-drive mobility, multi-sensor IoT telemetry (soil moisture, temperature, humidity), on-board CNN edge computer vision for crop disease detection, and farmer decision support dashboards.</p>
-  </div>
-
-  <h2 style="color: #7F011F; border-bottom-color: #F5EBD0;">Financial Markets Experience (4+ Years)</h2>
-  <div class="item-block">
-    <h3>Indian Stock Market (NSE/BSE) &amp; Global Forex Trader &amp; Investor</h3>
-    <p class="org-line">Active Market Execution (4+ Years Active Experience)</p>
-    <p>&bull; <strong>Indian Equities:</strong> Technical swing trading, momentum breakout strategies, sector rotation, and long-term value compounding using volume spread analysis (VSA).</p>
-    <p>&bull; <strong>Forex Trading:</strong> Multi-timeframe currency trading across major pairs (USD, EUR, GBP, JPY), session overlap dynamics (London/New York), and macroeconomic catalyst tracking.</p>
-    <p>&bull; <strong>Risk Management &amp; Quant Edge:</strong> Strict 1-2% capital risk per trade, asymmetric risk-reward execution (&ge; 1:2 R:R), algorithmic Python screening, and systematic digital trade logging.</p>
-  </div>
-
-  <h2 style="color: #7F011F; border-bottom-color: #F5EBD0;">Certifications</h2>
-  <div class="item-block">
-    <p>&bull; <strong>Certificate of Publication:</strong> International Journal of Innovative Research in Technology (IJIRT, IF 8.412), Reg ID 209192 (Oct 2026)</p>
-    <p>&bull; <strong>Generative AI Mastermind:</strong> Outskill &times; Moneycontrol (Founder: Vaibhav Sisinty) — LLM architectures, workflow automation &amp; prompt design</p>
-    <p>&bull; <strong>Introduction to Cloud Security:</strong> Simplilearn SkillUp (CEO: Krishna Kumar) — Certificate Code: 10829756 (Oct 2026)</p>
-  </div>
-
-  <h2 style="color: #7F011F; border-bottom-color: #F5EBD0;">Key Projects</h2>
-  <div class="item-block">
-    <h3>1. Smart Agriculture Robot with Edge AI (IoT &bull; Robotics)</h3>
-    <p>Autonomous ground rover with Raspberry Pi 4B, capacitive soil sensors, edge CNN crop disease screening, and cloud IoT dashboard. Published in IJIRT Journal.</p>
-    <div class="tags"><span class="tag">Raspberry Pi 4B</span><span class="tag">Python</span><span class="tag">Edge CNN</span><span class="tag">IoT Telemetry</span><span class="tag">IJIRT IF 8.412</span></div>
-  </div>
-  <div class="item-block">
-    <h3>2. Quantitative Trading Backtester &amp; Risk Engine</h3>
-    <p>Python analytical framework testing Price Action, Market Structure Shifts (MSS), dynamic position sizing, and strict 1:2+ R:R capital protection.</p>
-    <div class="tags"><span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">NSE/BSE</span><span class="tag">Forex</span><span class="tag">Risk 1:2+</span></div>
-  </div>
-  <div class="item-block">
-    <h3>3. Autonomous Object Following Robot (Raspberry Pi &bull; OpenCV)</h3>
-    <p>Computer-vision robotic vehicle tracking dynamic targets via OpenCV contour extraction and closed-loop PID velocity modulation.</p>
-    <div class="tags"><span class="tag">Raspberry Pi</span><span class="tag">OpenCV</span><span class="tag">PID Control</span><span class="tag">Robotics</span></div>
-  </div>
-  <div class="item-block">
-    <h3>4. Personal Developer Portfolio — Luxury Editorial Edition</h3>
-    <p>Bespoke portfolio designed in Wine Red (#7F011F) &amp; Light Sand (#F5EBD0) with spotlight search, 3D physics, and AI assistant.</p>
-    <div class="tags"><span class="tag">HTML5 / CSS3</span><span class="tag">Vanilla JS</span><span class="tag">Spotlight Search</span><span class="tag">3D Physics</span></div>
-  </div>
-
-  <h2>Technical Skills</h2>
-  <div class="tags" style="margin-bottom: 8px;">
-    <span class="tag">Python</span>
-    <span class="tag">JavaScript</span>
-    <span class="tag">HTML5 / CSS3</span>
-    <span class="tag">PHP</span>
-    <span class="tag">MySQL &amp; NoSQL</span>
-    <span class="tag">Raspberry Pi &amp; IoT</span>
-    <span class="tag">Edge AI &amp; Computer Vision</span>
-    <span class="tag">Indian Stock Market (NSE/BSE)</span>
-    <span class="tag">Forex Currency Trading</span>
-    <span class="tag">Technical Analysis &amp; Risk Management</span>
-    <span class="tag">Git &amp; GitHub</span>
-  </div>
-</body>
-</html>`;
-
-    const blob = new Blob([resumeHTML], { type: 'text/html' });
-    const url = URL.createObjectURL(blob);
+    // Direct download of the uploaded official PDF resume
+    const pdfPath = 'assets/Prathamesh_Balasaheb_Fatangade_Resume.pdf';
     const a = document.createElement('a');
-    a.href = url;
-    a.download = 'Prathamesh-Fatangade-Resume.html';
+    a.href = pdfPath;
+    a.download = 'Prathamesh_Balasaheb_Fatangade_Resume.pdf';
+    a.target = '_blank';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
-    URL.revokeObjectURL(url);
 
     if (resumeConfirm) {
+      resumeConfirm.innerHTML = '<i class="fas fa-check-circle"></i> Official Resume downloaded!';
       resumeConfirm.classList.add('show');
       setTimeout(() => {
         resumeConfirm.classList.remove('show');
@@ -871,36 +703,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ============================================================
-  // 6b. FAQ ACCORDION ENGINE (Checklist Item 14)
-  // ============================================================
-  const faqQuestions = document.querySelectorAll('.faq-question');
-  faqQuestions.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const item = btn.closest('.faq-item');
-      if (!item) return;
-      const isExpanded = btn.getAttribute('aria-expanded') === 'true';
-
-      // Close other open FAQ items for clean single-view accordion
-      document.querySelectorAll('.faq-item').forEach(other => {
-        if (other !== item) {
-          other.classList.remove('active');
-          const otherBtn = other.querySelector('.faq-question');
-          if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
-        }
-      });
-
-      if (isExpanded) {
-        item.classList.remove('active');
-        btn.setAttribute('aria-expanded', 'false');
-      } else {
-        item.classList.add('active');
-        btn.setAttribute('aria-expanded', 'true');
-      }
-    });
-  });
-
-  // ============================================================
-  // 6c. COOKIE & ANALYTICS PRIVACY BANNER (Checklist Item 12)
+  // 6b. COOKIE & ANALYTICS PRIVACY BANNER (Checklist Item 12)
   // ============================================================
   const cookieConsentBanner = document.getElementById('cookieConsentBanner');
   const acceptCookiesBtn = document.getElementById('acceptCookiesBtn');
@@ -977,7 +780,7 @@ document.addEventListener('DOMContentLoaded', () => {
     openResearchAbstractBtn.addEventListener('click', () => {
       modalBody.innerHTML = `
         <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px;">
-          <span style="background: rgba(127, 1, 31, 0.18); color: #F5EBD0; border: 1px solid rgba(127, 1, 31, 0.45); padding: 4px 12px; border-radius: 16px; font-size: 0.78rem; font-weight: 700;">
+          <span style="background: rgba(91, 61, 245, 0.18); color: #E8DEFF; border: 1px solid rgba(91, 61, 245, 0.45); padding: 4px 12px; border-radius: 16px; font-size: 0.78rem; font-weight: 700;">
             <i class="fas fa-award"></i> IJIRT Peer-Reviewed Journal
           </span>
           <span style="background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); padding: 4px 12px; border-radius: 16px; font-size: 0.78rem; font-weight: 600;">
@@ -1046,285 +849,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ============================================================
-  // 10. UPGRADED FLUID RAF 3D PHYSICS ENGINE ACROSS ALL SEGMENTS
+  // 10. CLEAN FLAT UI HOVER INTERACTIONS (3D Effects Removed)
   // ============================================================
-  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  // All cards and interactive elements use native high-performance
+  // 2D transitions (translateY & refined shadows) configured in CSS.
 
-  if (!prefersReducedMotion && !isTouchDevice) {
-
-    // --- A. 3D INTRO SCREEN PARALLAX (Interpolated Inertia) ---
-    const introScreenEl = document.querySelector('.intro-screen');
-    const introCenterEl = document.querySelector('.intro-center');
-    const introBackdropGlow = document.querySelector('.intro-backdrop-glow');
-    const introGrid = document.querySelector('.intro-3d-grid');
-    const introLetters = document.querySelectorAll('.intro-letter');
-
-    if (introScreenEl && introCenterEl) {
-      let targetIntroX = 0, targetIntroY = 0;
-      let currIntroX = 0, currIntroY = 0;
-      let introRafId = null;
-
-      function updateIntroPhysics() {
-        currIntroX += (targetIntroX - currIntroX) * 0.08;
-        currIntroY += (targetIntroY - currIntroY) * 0.08;
-
-        const rotateX = currIntroY * -20;
-        const rotateY = currIntroX * 20;
-
-        introCenterEl.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateZ(35px)`;
-
-        if (introBackdropGlow) {
-          introBackdropGlow.style.transform = `translate(${(currIntroX * 90).toFixed(1)}px, ${(currIntroY * 60).toFixed(1)}px) scale(${1 + Math.abs(currIntroX) * 0.25})`;
-        }
-
-        if (introGrid) {
-          introGrid.style.transform = `perspective(600px) rotateX(72deg) rotateZ(${(currIntroX * -14).toFixed(1)}deg) translateX(${(currIntroX * -60).toFixed(1)}px) translateY(${(currIntroY * 30).toFixed(1)}px)`;
-        }
-
-        // Chromatic micro-layer separation for 3D letters
-        introLetters.forEach((letter, i) => {
-          const depth = (i - 4) * 2;
-          letter.style.transform = `translateZ(${(30 + Math.abs(depth) * 4).toFixed(1)}px) rotateY(${(rotateY * 0.2).toFixed(1)}deg)`;
-        });
-
-        if (introScreenEl.classList.contains('intro-fade-out')) {
-          cancelAnimationFrame(introRafId);
-          return;
-        }
-
-        introRafId = requestAnimationFrame(updateIntroPhysics);
-      }
-
-      introScreenEl.addEventListener('mousemove', (e) => {
-        const rect = introScreenEl.getBoundingClientRect();
-        targetIntroX = (e.clientX - rect.left) / rect.width - 0.5;
-        targetIntroY = (e.clientY - rect.top) / rect.height - 0.5;
-
-        if (!introRafId) {
-          introRafId = requestAnimationFrame(updateIntroPhysics);
-        }
-      });
-
-      introScreenEl.addEventListener('mouseleave', () => {
-        targetIntroX = 0;
-        targetIntroY = 0;
-      });
-
-      // Start initial physics loop
-      introRafId = requestAnimationFrame(updateIntroPhysics);
-    }
-
-    // --- B. 3D HOME / HERO MULTI-PLANE PARALLAX WITH REAL-TIME LIGHTING ---
-    const heroEl = document.querySelector('.hero');
-    const heroContentEl = document.querySelector('.hero-content');
-    const heroRedGlow = document.querySelector('.hero-red-glow');
-    const heroTitleEl = document.querySelector('.hero-title');
-    const heroAvatarEl = document.getElementById('heroAvatar');
-    const heroBadges = document.querySelectorAll('.hero-badge-3d');
-
-    if (heroEl && heroContentEl) {
-      let targetHeroX = 0, targetHeroY = 0;
-      let currHeroX = 0, currHeroY = 0;
-      let heroRafRunning = false;
-
-      function updateHeroPhysics() {
-        currHeroX += (targetHeroX - currHeroX) * 0.09;
-        currHeroY += (targetHeroY - currHeroY) * 0.09;
-
-        const rotX = currHeroY * -10;
-        const rotY = currHeroX * 10;
-
-        // Content plane 3D tilt
-        heroContentEl.style.transform = `perspective(1200px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translateZ(22px)`;
-
-        // Dynamic 3D text-shadow extrusion on PRATHAMESH FATANGADE
-        if (heroTitleEl) {
-          const sx = (-rotY * 1.8).toFixed(1);
-          const sy = (rotX * 1.8).toFixed(1);
-          heroTitleEl.style.textShadow = `${sx}px ${sy}px 0 #520012, ${(sx * 2).toFixed(1)}px ${(sy * 2).toFixed(1)}px 0 #2a0008, 0 15px 35px rgba(127, 1, 31, 0.45)}`;
-        }
-
-        // Ambient glow floats inversely for stereoscopic depth
-        if (heroRedGlow) {
-          heroRedGlow.style.transform = `translate(${(currHeroX * -90).toFixed(1)}px, ${(currHeroY * -90).toFixed(1)}px) scale(${1 + Math.abs(currHeroX) * 0.15})`;
-        }
-
-        // Avatar 3D tilt
-        if (heroAvatarEl) {
-          heroAvatarEl.style.transform = `perspective(900px) rotateX(${(rotX * 1.3).toFixed(2)}deg) rotateY(${(rotY * 1.3).toFixed(2)}deg) scale3d(1.025, 1.025, 1.025)`;
-        }
-
-        // Holographic badges multi-axis 3D depth pop
-        heroBadges.forEach((badge, idx) => {
-          const depthMultiplier = (idx + 1) * 12;
-          const zDepth = 55 + idx * 18;
-          badge.style.transform = `translateZ(${zDepth}px) translate(${(currHeroX * depthMultiplier).toFixed(1)}px, ${(currHeroY * depthMultiplier).toFixed(1)}px)`;
-        });
-
-        // Continue running until settled
-        const isSettled = Math.abs(targetHeroX - currHeroX) < 0.001 && Math.abs(targetHeroY - currHeroY) < 0.001 && targetHeroX === 0 && targetHeroY === 0;
-
-        if (!isSettled) {
-          requestAnimationFrame(updateHeroPhysics);
-        } else {
-          heroRafRunning = false;
-        }
-      }
-
-      heroEl.addEventListener('mousemove', (e) => {
-        const rect = heroEl.getBoundingClientRect();
-        targetHeroX = (e.clientX - rect.left) / rect.width - 0.5;
-        targetHeroY = (e.clientY - rect.top) / rect.height - 0.5;
-
-        if (!heroRafRunning) {
-          heroRafRunning = true;
-          requestAnimationFrame(updateHeroPhysics);
-        }
-      });
-
-      heroEl.addEventListener('mouseleave', () => {
-        targetHeroX = 0;
-        targetHeroY = 0;
-        if (!heroRafRunning) {
-          heroRafRunning = true;
-          requestAnimationFrame(updateHeroPhysics);
-        }
-      });
-    }
-
-    // --- C. UNIVERSAL SPRING-LERPED 3D CARD ENGINE ACROSS ALL SEGMENTS ---
-    function initUniversal3DTilt() {
-      const cardSelectors = [
-        '.hero-avatar-wrapper',
-        '.about-avatar-wrapper',
-        '.profile-avatar',
-        '.profile-card',
-        '.project-card',
-        '.research-featured-box',
-        '.research-pillar-card',
-        '.market-card',
-        '.market-stat-tile',
-        '.skill-category',
-        '.cert-card',
-        '.achievement-card',
-        '.contact-info-item',
-        '.contact-form',
-        '.about-detail-item',
-        '.endorsement-card',
-        '.faq-item',
-        '.card-3d'
-      ];
-
-      const elements = document.querySelectorAll(cardSelectors.join(', '));
-
-      elements.forEach(el => {
-        el.classList.add('card-3d-interactive');
-
-        // Dynamically append specular glare overlay if not present
-        if (!el.querySelector('.card-glare')) {
-          const glare = document.createElement('div');
-          glare.className = 'card-glare';
-          el.appendChild(glare);
-        }
-
-        // Custom tilt parameters per element category
-        let maxTilt = 14;
-        let perspective = 950;
-        let elevateZ = 14;
-
-        if (el.classList.contains('hero-avatar-wrapper') || el.classList.contains('about-avatar-wrapper')) {
-          maxTilt = 16;
-          perspective = 850;
-          elevateZ = 20;
-        } else if (el.classList.contains('project-card')) {
-          maxTilt = 16;
-          perspective = 800;
-          elevateZ = 16;
-        } else if (el.classList.contains('market-card')) {
-          maxTilt = 15;
-          perspective = 850;
-          elevateZ = 15;
-        } else if (el.classList.contains('achievement-card') || el.classList.contains('cert-card')) {
-          maxTilt = 15;
-          perspective = 850;
-          elevateZ = 16;
-        } else if (el.classList.contains('research-featured-box')) {
-          maxTilt = 8;
-          perspective = 1400;
-          elevateZ = 12;
-        }
-
-        let targetRotX = 0, targetRotY = 0;
-        let currRotX = 0, currRotY = 0;
-        let isHovered = false;
-        let cardRaf = null;
-
-        function animateCardPhysics() {
-          currRotX += (targetRotX - currRotX) * 0.12;
-          currRotY += (targetRotY - currRotY) * 0.12;
-
-          const currentElevation = isHovered ? elevateZ : 0;
-          const currentScale = isHovered ? 1.025 : 1.0;
-
-          el.style.transform = `perspective(${perspective}px) rotateX(${currRotX.toFixed(2)}deg) rotateY(${currRotY.toFixed(2)}deg) translateZ(${currentElevation}px) scale3d(${currentScale}, ${currentScale}, ${currentScale})`;
-
-          // Dynamic light-opposing 3D shadow cast
-          if (isHovered) {
-            const shadowX = (-currRotY * 1.6).toFixed(1);
-            const shadowY = (currRotX * 1.6 + 18).toFixed(1);
-            el.style.boxShadow = `${shadowX}px ${shadowY}px 40px rgba(0, 0, 0, 0.75), 0 0 25px rgba(127, 1, 31, 0.25)`;
-          } else {
-            el.style.boxShadow = '';
-          }
-
-          const hasMomentum = Math.abs(targetRotX - currRotX) > 0.02 || Math.abs(targetRotY - currRotY) > 0.02;
-
-          if (isHovered || hasMomentum) {
-            cardRaf = requestAnimationFrame(animateCardPhysics);
-          } else {
-            // Rest state
-            el.style.transform = `perspective(${perspective}px) rotateX(0deg) rotateY(0deg) translateZ(0px) scale3d(1, 1, 1)`;
-            cardRaf = null;
-          }
-        }
-
-        el.addEventListener('mouseenter', () => {
-          isHovered = true;
-          if (!cardRaf) {
-            cardRaf = requestAnimationFrame(animateCardPhysics);
-          }
-        });
-
-        el.addEventListener('mousemove', (e) => {
-          const rect = el.getBoundingClientRect();
-          const x = (e.clientX - rect.left) / rect.width; // 0 to 1
-          const y = (e.clientY - rect.top) / rect.height; // 0 to 1
-
-          targetRotX = (y - 0.5) * -maxTilt * 2;
-          targetRotY = (x - 0.5) * maxTilt * 2;
-
-          // Real-time specular glare coordinates
-          el.style.setProperty('--glare-x', `${(x * 100).toFixed(1)}%`);
-          el.style.setProperty('--glare-y', `${(y * 100).toFixed(1)}%`);
-
-          if (!cardRaf) {
-            cardRaf = requestAnimationFrame(animateCardPhysics);
-          }
-        });
-
-        el.addEventListener('mouseleave', () => {
-          isHovered = false;
-          targetRotX = 0;
-          targetRotY = 0;
-          if (!cardRaf) {
-            cardRaf = requestAnimationFrame(animateCardPhysics);
-          }
-        });
-      });
-    }
-
-    initUniversal3DTilt();
-  }
 
   // ============================================================
   // 11. NETFLIX-THEMED INTERACTIVE AI CHATBOT ENGINE
@@ -1490,7 +1019,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <li><strong>Smart Agriculture Robot with Edge AI:</strong> Published Raspberry Pi 4B rover with Edge AI leaf disease recognition &amp; IoT sensors (IJIRT IF 8.412).</li>
           <li><strong>Quantitative Trading Backtester &amp; Risk Engine:</strong> Python quantitative engine testing Price Action, Market Structure Shifts (MSS), and strict 1:2+ R:R capital protection.</li>
           <li><strong>Autonomous Object Following Robot:</strong> Computer-vision robotic rover using Raspberry Pi 4B and OpenCV with closed-loop PID velocity modulation.</li>
-          <li><strong>Personal Developer Portfolio — Luxury Editorial Edition:</strong> Bespoke portfolio designed in Wine Red (#7F011F) &amp; Light Sand (#F5EBD0) with live spotlight search, 3D card physics, and this interactive AI assistant.</li>
+          <li><strong>Personal Developer Portfolio — Luxury Cyber Edition:</strong> Bespoke portfolio designed in Raspberry (#5B3DF5) &amp; Pale Sky (#E8DEFF) with 3D card physics and this interactive AI assistant.</li>
         </ul>
         <div class="chat-actions-row">
           <a href="#projects" class="chat-action-btn" onclick="toggleChatbot(false)"><i class="fas fa-laptop-code"></i> Explore Projects</a>
@@ -1518,7 +1047,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return `
         <p>📬 <strong>Get in Touch with Prathamesh:</strong></p>
         <ul>
-          <li><strong>Email:</strong> <a href="mailto:fatangadeprathamesh@gmail.com" style="color: var(--accent-sand, #F5EBD0); text-decoration: underline;">fatangadeprathamesh@gmail.com</a></li>
+          <li><strong>Email:</strong> <a href="mailto:fatangadeprathamesh@gmail.com" style="color: var(--accent-sand, #E8DEFF); text-decoration: underline;">fatangadeprathamesh@gmail.com</a></li>
           <li><strong>GitHub:</strong> <a href="https://github.com/fatangadeprathamesh-svg" target="_blank" rel="noopener noreferrer" style="color: #60a5fa; text-decoration: underline;">github.com/fatangadeprathamesh-svg</a></li>
           <li><strong>Location:</strong> Maharashtra, India</li>
         </ul>
@@ -1721,52 +1250,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderAmbientBackground();
   }
 
-  // --- B. LUXURY CUSTOM INTERACTIVE CURSOR & MAGNETIC FOLLOWER ---
-  const cursorDot = document.getElementById('cursorDot');
-  const cursorGlow = document.getElementById('cursorGlow');
   const isTouch = window.matchMedia('(pointer: coarse)').matches;
-
-  if (cursorDot && cursorGlow && !isTouch && !prefersReducedMotion) {
-    let mouseX = -100, mouseY = -100;
-    let dotX = -100, dotY = -100;
-    let ringX = -100, ringY = -100;
-
-    window.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    });
-
-    function updateCustomCursor() {
-      // Lerp positions
-      dotX += (mouseX - dotX) * 0.45;
-      dotY += (mouseY - dotY) * 0.45;
-
-      ringX += (mouseX - ringX) * 0.16;
-      ringY += (mouseY - ringY) * 0.16;
-
-      cursorDot.style.left = `${dotX.toFixed(1)}px`;
-      cursorDot.style.top = `${dotY.toFixed(1)}px`;
-
-      cursorGlow.style.left = `${ringX.toFixed(1)}px`;
-      cursorGlow.style.top = `${ringY.toFixed(1)}px`;
-
-      requestAnimationFrame(updateCustomCursor);
-    }
-    updateCustomCursor();
-
-    // Hover state expansion over interactive items
-    const hoverTargets = document.querySelectorAll('a, button, input, textarea, .card-3d, .project-card, .market-stat-tile, .cert-card, .faq-item, .chat-chip');
-    hoverTargets.forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursorDot.classList.add('cursor-hover');
-        cursorGlow.classList.add('cursor-hover');
-      });
-      el.addEventListener('mouseleave', () => {
-        cursorDot.classList.remove('cursor-hover');
-        cursorGlow.classList.remove('cursor-hover');
-      });
-    });
-  }
 
   // --- C. MAGNETIC BUTTON PHYSICS ---
   if (!isTouch && !prefersReducedMotion) {
@@ -1866,6 +1350,378 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: 0.2 });
     floatObserver.observe(researchBox);
   }
+
+  // ============================================================
+  // 13. INTERACTIVE VISITOR REVIEWS & LOCALSTORAGE PERSISTENCE
+  // (Pure real visitor reviews — zero fake reviews)
+  // ============================================================
+  const STORAGE_KEY_REVIEWS = 'portfolio_visitor_reviews';
+
+  // Known fake/seed IDs and author names to purge from localStorage
+  const FAKE_REVIEW_NAMES = ['Prof. S. R. Kulkarni', 'Rohan Deshmukh', 'Dr. Arvind Mehta', 'Sneha Patil'];
+
+  function getStoredReviews() {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY_REVIEWS);
+      if (stored) {
+        let parsed = JSON.parse(stored);
+        if (Array.isArray(parsed)) {
+          // Permanently purge any fake seed reviews that might have been saved previously
+          const realReviews = parsed.filter(r => {
+            if (!r) return false;
+            if (r.id && String(r.id).startsWith('rev-seed-')) return false;
+            if (r.name && FAKE_REVIEW_NAMES.includes(r.name.trim())) return false;
+            return true;
+          });
+          // Update localStorage if fake reviews were stripped
+          if (realReviews.length !== parsed.length) {
+            localStorage.setItem(STORAGE_KEY_REVIEWS, JSON.stringify(realReviews));
+          }
+          return realReviews;
+        }
+      }
+    } catch (e) {
+      console.warn('Could not read reviews from localStorage:', e);
+    }
+    return [];
+  }
+
+  function saveStoredReviews(reviews) {
+    try {
+      localStorage.setItem(STORAGE_KEY_REVIEWS, JSON.stringify(reviews));
+    } catch (e) {
+      console.error('Could not save reviews to localStorage:', e);
+    }
+  }
+
+  function escapeReviewHtml(str) {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  function renderStarsHtml(rating) {
+    let starsHtml = '';
+    const rounded = Math.round(rating * 2) / 2;
+    for (let i = 1; i <= 5; i++) {
+      if (i <= rounded) {
+        starsHtml += '<i class="fas fa-star"></i>';
+      } else if (i - 0.5 === rounded) {
+        starsHtml += '<i class="fas fa-star-half-alt"></i>';
+      } else {
+        starsHtml += '<i class="far fa-star"></i>';
+      }
+    }
+    return starsHtml;
+  }
+
+  function renderReviewsSection(newestId = null) {
+    const reviewsGrid = document.getElementById('visitorReviewsGrid');
+    const overallScoreEl = document.getElementById('overallRatingScore');
+    const summaryStarsEl = document.getElementById('summaryStarsRow');
+    const totalCountEl = document.getElementById('totalReviewsCount');
+
+    if (!reviewsGrid) return;
+
+    const reviews = getStoredReviews();
+    const total = reviews.length;
+
+    // Handle Empty State (No reviews submitted yet)
+    if (total === 0) {
+      if (overallScoreEl) overallScoreEl.textContent = '5.0';
+      if (summaryStarsEl) {
+        summaryStarsEl.innerHTML = `
+          <i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+        `;
+      }
+      if (totalCountEl) totalCountEl.textContent = 'No reviews yet — be the first to share your thoughts!';
+
+      reviewsGrid.innerHTML = `
+        <div class="reviews-empty-state">
+          <div class="empty-state-icon" aria-hidden="true">
+            <i class="fas fa-feather-alt"></i>
+          </div>
+          <h3 class="empty-state-title">No Reviews Yet</h3>
+          <p class="empty-state-desc">
+            Are you exploring my portfolio or have we collaborated on software engineering, robotics, or market trading? Your feedback means a lot!
+          </p>
+          <button type="button" class="btn btn-primary" id="emptyStateReviewBtn">
+            <i class="fas fa-pen"></i> Be the First to Leave a Review
+          </button>
+        </div>
+      `;
+
+      const emptyBtn = document.getElementById('emptyStateReviewBtn');
+      if (emptyBtn) emptyBtn.addEventListener('click', openReviewModal);
+      return;
+    }
+
+    // Calculate real score from submitted reviews
+    const sum = reviews.reduce((acc, r) => acc + (Number(r.rating) || 5), 0);
+    const avgScore = (sum / total).toFixed(1);
+
+    if (overallScoreEl) overallScoreEl.textContent = avgScore;
+    if (summaryStarsEl) summaryStarsEl.innerHTML = renderStarsHtml(parseFloat(avgScore));
+    if (totalCountEl) totalCountEl.textContent = `Based on ${total} verified visitor review${total === 1 ? '' : 's'}`;
+
+    // Render cards
+    reviewsGrid.innerHTML = reviews.map(rev => {
+      const initial = (rev.name || 'V').trim().charAt(0).toUpperCase();
+      const isNew = rev.id === newestId;
+      return `
+        <article class="visitor-review-card ${isNew ? 'newly-added' : ''}" data-review-id="${escapeReviewHtml(rev.id)}">
+          <div class="review-card-top">
+            <div class="review-author-info">
+              <div class="review-avatar" aria-hidden="true">${escapeReviewHtml(initial)}</div>
+              <div>
+                <h4 class="review-author-name">${escapeReviewHtml(rev.name)}</h4>
+                <p class="review-author-role">${escapeReviewHtml(rev.role)}</p>
+              </div>
+            </div>
+            <div class="review-stars" aria-label="${rev.rating} out of 5 stars">
+              ${renderStarsHtml(rev.rating)}
+            </div>
+          </div>
+
+          <div class="review-category-badge">
+            <i class="fas fa-tag"></i> ${escapeReviewHtml(rev.category || 'General & Portfolio')}
+          </div>
+
+          <p class="review-body-text">
+            ${escapeReviewHtml(rev.comment)}
+          </p>
+
+          <div class="review-card-footer">
+            <span class="review-verified-tag">
+              <i class="fas fa-check-circle"></i> Verified Visitor
+            </span>
+            <span class="review-date">${escapeReviewHtml(rev.date || 'Recent')}</span>
+          </div>
+        </article>
+      `;
+    }).join('');
+  }
+
+  // --- REVIEW MODAL LOGIC ---
+  const reviewModal = document.getElementById('reviewModal');
+  const openReviewModalBtn = document.getElementById('openReviewModalBtn');
+  const reviewModalClose = document.getElementById('reviewModalClose');
+  const reviewModalCancelBtn = document.getElementById('reviewModalCancelBtn');
+  const reviewModalBackdrop = document.getElementById('reviewModalBackdrop');
+  const visitorReviewForm = document.getElementById('visitorReviewForm');
+  const reviewStarPicker = document.getElementById('reviewStarPicker');
+  const selectedRatingText = document.getElementById('selectedRatingText');
+  const reviewRatingInput = document.getElementById('reviewRatingInput');
+
+  const starRatingHints = {
+    1: '1.0 - Needs Improvement',
+    2: '2.0 - Below Expectations',
+    3: '3.0 - Good Work',
+    4: '4.0 - Great Experience',
+    5: '5.0 - Outstanding'
+  };
+
+  function updateStarPickerUI(val) {
+    if (!reviewStarPicker) return;
+    const starBtns = reviewStarPicker.querySelectorAll('.star-btn');
+    starBtns.forEach(btn => {
+      const btnVal = parseInt(btn.getAttribute('data-value'), 10);
+      if (btnVal <= val) {
+        btn.classList.add('active');
+        btn.classList.remove('inactive');
+      } else {
+        btn.classList.remove('active');
+        btn.classList.add('inactive');
+      }
+    });
+    if (reviewRatingInput) reviewRatingInput.value = val;
+    if (selectedRatingText) selectedRatingText.textContent = starRatingHints[val] || `${val}.0 Rating`;
+  }
+
+  function previewStarsUI(hoverVal) {
+    if (!reviewStarPicker) return;
+    const starBtns = reviewStarPicker.querySelectorAll('.star-btn');
+    starBtns.forEach(btn => {
+      const btnVal = parseInt(btn.getAttribute('data-value'), 10);
+      if (btnVal <= hoverVal) {
+        btn.classList.add('hovered');
+      } else {
+        btn.classList.remove('hovered');
+      }
+    });
+  }
+
+  function clearStarPreview() {
+    if (!reviewStarPicker) return;
+    const starBtns = reviewStarPicker.querySelectorAll('.star-btn');
+    starBtns.forEach(btn => btn.classList.remove('hovered'));
+  }
+
+  function openReviewModal() {
+    if (!reviewModal) return;
+    reviewModal.classList.add('active');
+    reviewModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+
+    // Reset alert
+    const successAlert = document.getElementById('reviewSuccessAlert');
+    if (successAlert) successAlert.style.display = 'none';
+
+    // Focus name input
+    const nameInput = document.getElementById('reviewAuthorName');
+    if (nameInput) setTimeout(() => nameInput.focus(), 150);
+  }
+
+  function closeReviewModal() {
+    if (!reviewModal) return;
+    reviewModal.classList.remove('active');
+    reviewModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  if (openReviewModalBtn) openReviewModalBtn.addEventListener('click', openReviewModal);
+  if (reviewModalClose) reviewModalClose.addEventListener('click', closeReviewModal);
+  if (reviewModalCancelBtn) reviewModalCancelBtn.addEventListener('click', closeReviewModal);
+  if (reviewModalBackdrop) reviewModalBackdrop.addEventListener('click', closeReviewModal);
+
+  // Close modals on Esc
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (reviewModal && reviewModal.classList.contains('active')) {
+        closeReviewModal();
+      }
+    }
+  });
+
+  // Star Picker Events
+  if (reviewStarPicker) {
+    const starBtns = reviewStarPicker.querySelectorAll('.star-btn');
+    starBtns.forEach(btn => {
+      btn.addEventListener('mouseenter', () => {
+        const val = parseInt(btn.getAttribute('data-value'), 10);
+        previewStarsUI(val);
+      });
+
+      btn.addEventListener('click', () => {
+        const val = parseInt(btn.getAttribute('data-value'), 10);
+        updateStarPickerUI(val);
+      });
+    });
+
+    reviewStarPicker.addEventListener('mouseleave', () => {
+      clearStarPreview();
+    });
+  }
+
+  // Review Form Submit Handler
+  if (visitorReviewForm) {
+    const nameInput = document.getElementById('reviewAuthorName');
+    const roleInput = document.getElementById('reviewAuthorRole');
+    const categorySelect = document.getElementById('reviewCategory');
+    const commentInput = document.getElementById('reviewCommentText');
+    const nameError = document.getElementById('reviewNameError');
+    const roleError = document.getElementById('reviewRoleError');
+    const commentError = document.getElementById('reviewCommentError');
+    const successAlert = document.getElementById('reviewSuccessAlert');
+    const submitBtn = document.getElementById('reviewSubmitBtn');
+
+    // Clear validation on type
+    if (nameInput) nameInput.addEventListener('input', () => { if (nameError) nameError.style.display = 'none'; });
+    if (roleInput) roleInput.addEventListener('input', () => { if (roleError) roleError.style.display = 'none'; });
+    if (commentInput) commentInput.addEventListener('input', () => { if (commentError) commentError.style.display = 'none'; });
+
+    visitorReviewForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      let isValid = true;
+
+      const nameVal = nameInput ? nameInput.value.trim() : '';
+      const roleVal = roleInput ? roleInput.value.trim() : '';
+      const catVal = categorySelect ? categorySelect.value : 'General & Portfolio';
+      const commentVal = commentInput ? commentInput.value.trim() : '';
+      const ratingVal = reviewRatingInput ? parseInt(reviewRatingInput.value, 10) || 5 : 5;
+
+      if (!nameVal) {
+        if (nameError) nameError.style.display = 'block';
+        if (nameInput) nameInput.focus();
+        isValid = false;
+      }
+
+      if (!roleVal) {
+        if (roleError) roleError.style.display = 'block';
+        if (!nameVal && nameInput) { /* already focused */ }
+        else if (roleInput) roleInput.focus();
+        isValid = false;
+      }
+
+      if (!commentVal || commentVal.length < 8) {
+        if (commentError) commentError.style.display = 'block';
+        if (isValid && commentInput) commentInput.focus();
+        isValid = false;
+      }
+
+      if (!isValid) return;
+
+      // Create new review
+      const newReviewId = 'rev-' + Date.now();
+      const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      const now = new Date();
+      const formattedDate = `${monthNames[now.getMonth()]} ${now.getFullYear()}`;
+
+      const newReview = {
+        id: newReviewId,
+        name: nameVal,
+        role: roleVal,
+        rating: ratingVal,
+        category: catVal,
+        comment: commentVal,
+        date: formattedDate,
+        verified: true
+      };
+
+      const currentReviews = getStoredReviews();
+      currentReviews.unshift(newReview); // Prepend to top
+      saveStoredReviews(currentReviews);
+
+      // Re-render reviews with animation highlight
+      renderReviewsSection(newReviewId);
+
+      // Show success alert
+      if (successAlert) {
+        successAlert.style.display = 'flex';
+      }
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-check"></i> Published!';
+      }
+
+      // Reset form
+      visitorReviewForm.reset();
+      updateStarPickerUI(5);
+
+      // Close modal smoothly after 1.5s
+      setTimeout(() => {
+        closeReviewModal();
+        if (successAlert) successAlert.style.display = 'none';
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Publish Review';
+        }
+
+        // Scroll to the review section if not visible
+        const reviewsSection = document.getElementById('reviews');
+        if (reviewsSection) {
+          reviewsSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }, 1500);
+    });
+  }
+
+  // Initialize reviews section on load
+  renderReviewsSection();
 
 });
 

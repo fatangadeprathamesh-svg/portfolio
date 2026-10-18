@@ -33,89 +33,132 @@
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="css/style.css">
+
+  <!-- Instant Theme Initializer (Prevents FOUT flash) -->
+  <script>
+    (function() {
+      try {
+        var stored = localStorage.getItem('portfolio_theme_preference');
+        var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch(e) {}
+    })();
+  </script>
 </head>
 <body>
 
   <!-- Full-Screen Interactive Ambient Background Canvas (Active across all pages) -->
   <canvas id="ambientCanvas" class="ambient-canvas" aria-hidden="true"></canvas>
 
-  <!-- Luxury Interactive Cursor & Magnetic Glow Follower (Auto-hidden on touch) -->
-  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
-  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
 
   <!-- ============================================================
-       SECTION 1: INTRO ANIMATION
-       Cinematic loading screen with monogram and progress bar.
+       SECTION 1: ALL-NEW CINEMATIC ANIMATED INTRO SCREEN
+       Orbital Reactor Core, Holographic Monogram, Kinetic Telemetry
        ============================================================ -->
   <div id="introScreen" class="intro-screen" role="dialog" aria-label="Intro animation">
-    <!-- Ambient cinematic lighting & lens sweep -->
-    <div class="intro-backdrop-glow"></div>
-    <div class="intro-3d-grid" aria-hidden="true"></div>
+    <!-- Atmospheric Ambient Lighting & Particle Canvas -->
+    <div class="intro-space-grid" aria-hidden="true"></div>
+    <div class="intro-nebula-glow" aria-hidden="true"></div>
     <canvas id="introParticles" class="intro-particles"></canvas>
-    <div class="intro-light-beam"></div>
+    <div class="intro-anamorphic-flare" aria-hidden="true"></div>
 
-    <div class="intro-center">
-      <!-- Netflix-style Chromatic Light Ribbons -->
-      <div class="intro-ribbons" aria-hidden="true">
-        <span class="ribbon r-1"></span>
-        <span class="ribbon r-2"></span>
-        <span class="ribbon r-3"></span>
-        <span class="ribbon r-4"></span>
-        <span class="ribbon r-5"></span>
-        <span class="ribbon r-6"></span>
-        <span class="ribbon r-7"></span>
-      </div>
-
-      <!-- 3D Staggered Cinematic Letters for PORTFOLIO -->
-      <div class="intro-title" aria-label="PORTFOLIO">
-        <span class="intro-letter" style="--i:0">P</span>
-        <span class="intro-letter" style="--i:1">O</span>
-        <span class="intro-letter" style="--i:2">R</span>
-        <span class="intro-letter" style="--i:3">T</span>
-        <span class="intro-letter" style="--i:4">F</span>
-        <span class="intro-letter" style="--i:5">O</span>
-        <span class="intro-letter" style="--i:6">L</span>
-        <span class="intro-letter" style="--i:7">I</span>
-        <span class="intro-letter" style="--i:8">O</span>
-      </div>
-
-      <div class="intro-tagline">Building ideas into digital experiences.</div>
-
-      <!-- Glowing Futuristic Scanner with Percentage -->
-      <div class="intro-loader-wrap">
-        <div class="intro-loader">
-          <div class="loader-bar" id="loaderBar"></div>
-          <div class="loader-laser"></div>
-        </div>
-        <span class="loader-percentage" id="loaderPercent">0%</span>
-      </div>
-    </div>
-
-    <!-- Shockwave Ring -->
-    <div class="intro-shockwave" id="introShockwave"></div>
-
+    <!-- Skip Intro Button (Top Right corner) -->
     <button class="skip-intro" id="skipIntro" aria-label="Skip intro animation">
-      Skip Intro <i class="fas fa-forward"></i>
+      <span>Skip Intro</span> <i class="fas fa-forward"></i>
     </button>
+
+    <div class="intro-stage">
+      <!-- 1. Gyroscopic Orbital Reactor & Holographic Core -->
+      <div class="orbital-reactor-wrapper" aria-hidden="true">
+        <!-- Outer Glowing Energy Ring -->
+        <div class="orbital-ring orbital-outer">
+          <span class="orbit-particle p1"></span>
+          <span class="orbit-particle p2"></span>
+        </div>
+        <!-- Middle Counter-Rotating Ring with Ticks -->
+        <div class="orbital-ring orbital-middle"></div>
+        <!-- Inner Fast Accent Ring -->
+        <div class="orbital-ring orbital-inner"></div>
+
+        <!-- Center Glowing Glassmorphic Hex Core with PF Monogram -->
+        <div class="reactor-core">
+          <div class="core-pulse-energy"></div>
+          <div class="core-monogram">
+            <span class="monogram-letter">P</span>
+            <span class="monogram-letter">F</span>
+          </div>
+          <div class="core-corner tl"></div>
+          <div class="core-corner tr"></div>
+          <div class="core-corner bl"></div>
+          <div class="core-corner br"></div>
+        </div>
+      </div>
+
+      <!-- 2. Grand Cinematic Editorial Title & Kinetic Badge -->
+      <div class="intro-hero-text">
+        <div class="intro-pre-badge">
+          <span class="status-pulse-dot"></span>
+          <span>CYBERNETIC PORTFOLIO &bull; 2026 EDITION</span>
+        </div>
+        
+        <h1 class="intro-main-title">
+          <span class="title-shimmer">PRATHAMESH FATANGADE</span>
+        </h1>
+
+        <!-- Kinetic Rotating Tagline / Roles Carousel -->
+        <div class="intro-dynamic-role-wrap">
+          <i class="fas fa-terminal role-icon"></i>
+          <span class="intro-dynamic-role" id="introDynamicRole">Edge AI &amp; Robotics Researcher</span>
+        </div>
+      </div>
+
+      <!-- 3. Futuristic Kinetic Soundwave / Frequency HUD -->
+      <div class="intro-frequency-hud" aria-hidden="true">
+        <div class="freq-bar" style="--h: 35%;"></div>
+        <div class="freq-bar" style="--h: 65%;"></div>
+        <div class="freq-bar" style="--h: 90%;"></div>
+        <div class="freq-bar" style="--h: 50%;"></div>
+        <div class="freq-bar" style="--h: 100%;"></div>
+        <div class="freq-bar" style="--h: 75%;"></div>
+        <div class="freq-bar" style="--h: 40%;"></div>
+        <div class="freq-bar" style="--h: 85%;"></div>
+        <div class="freq-bar" style="--h: 60%;"></div>
+        <div class="freq-bar" style="--h: 95%;"></div>
+        <div class="freq-bar" style="--h: 30%;"></div>
+        <div class="freq-bar" style="--h: 70%;"></div>
+      </div>
+
+      <!-- 4. Segmented Quantum Energy Loader & Status Text -->
+      <div class="intro-quantum-loader-wrap">
+        <div class="loader-meta-row">
+          <span class="loader-status-text" id="loaderStatusText">Initializing Quantum Core...</span>
+          <span class="loader-percentage" id="loaderPercent">0%</span>
+        </div>
+
+        <div class="intro-quantum-loader">
+          <div class="quantum-loader-bar" id="loaderBar">
+            <div class="quantum-laser-head"></div>
+          </div>
+          <!-- Track Grid Ticks -->
+          <div class="loader-ticks" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Instant Interactive Enter Button -->
+      <div class="intro-enter-action">
+        <button type="button" class="intro-enter-btn" id="introEnterBtn">
+          <span>ENTER PORTFOLIO</span>
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Shockwave Energy Ring for Milestone Pulses -->
+    <div class="intro-shockwave" id="introShockwave"></div>
   </div>
 
-  <!-- ============================================================
-       SECTION 2: PROFILE SELECTION (Netflix-style)
-       ============================================================ -->
-  <div id="profileScreen" class="profile-screen screen-hidden" role="dialog" aria-label="Profile selection">
-    <div class="profile-3d-glow"></div>
-    <h2 class="profile-heading">Who's watching?</h2>
-    <div class="profile-container">
-      <button class="profile-card" id="profileCard" aria-label="Enter as Prathamesh">
-        <div class="profile-avatar">
-          <img src="assets/images/profile.jpg" alt="Prathamesh" class="profile-avatar-img">
-          <div class="profile-avatar-sheen"></div>
-        </div>
-        <p class="profile-name">Prathamesh</p>
-        <span class="profile-3d-badge"><i class="fas fa-play"></i> Watch Portfolio</span>
-      </button>
-    </div>
-  </div>
 
   <!-- ============================================================
        MAIN CONTENT (hidden until profile is selected)
@@ -134,24 +177,9 @@
         <li><a href="#markets" class="nav-link">Markets</a></li>
         <li><a href="#skills" class="nav-link">Skills</a></li>
         <li><a href="#certificates" class="nav-link">Certificates</a></li>
-        <li><a href="#endorsements" class="nav-link">Reviews</a></li>
-        <li><a href="#faq" class="nav-link">FAQ</a></li>
+        <li><a href="#reviews" class="nav-link">Reviews</a></li>
         <li><a href="#contact" class="nav-link">Contact</a></li>
       </ul>
-
-      <!-- Instant Spotlight Live Search Bar -->
-      <div class="nav-search-wrap">
-        <div class="nav-search-bar" id="navSearchBar">
-          <i class="fas fa-search search-icon" aria-hidden="true"></i>
-          <input type="text" id="globalSearchInput" class="nav-search-input" placeholder="Search portfolio (projects, research, skills)..." autocomplete="off" aria-label="Search portfolio">
-          <kbd class="search-key" title="Press / to focus search">/</kbd>
-          <button type="button" id="clearSearchBtn" class="clear-search-btn" aria-label="Clear search" style="display:none;">
-            <i class="fas fa-times"></i>
-          </button>
-        </div>
-        <!-- Live Instant Search Dropdown Panel -->
-        <div class="search-results-dropdown" id="searchResultsDropdown" role="listbox" aria-label="Search results" style="display: none;"></div>
-      </div>
 
       <div class="nav-actions">
         <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Switch to Light Mode">
@@ -172,12 +200,6 @@
     <!-- Mobile Nav Overlay -->
     <div class="mobile-nav-overlay" id="mobileNavOverlay">
       <ul class="mobile-nav-links" id="mobileNavLinks">
-        <li style="margin-bottom: 6px;">
-          <div class="nav-search-bar" style="width: 100%;">
-            <i class="fas fa-search search-icon"></i>
-            <input type="text" id="mobileSearchInput" class="nav-search-input" placeholder="Search portfolio..." autocomplete="off">
-          </div>
-        </li>
         <li><a href="#hero" class="mobile-nav-link">Home</a></li>
         <li><a href="#about" class="mobile-nav-link">About</a></li>
         <li><a href="#research" class="mobile-nav-link">Research</a></li>
@@ -185,8 +207,7 @@
         <li><a href="#markets" class="mobile-nav-link">Markets</a></li>
         <li><a href="#skills" class="mobile-nav-link">Skills</a></li>
         <li><a href="#certificates" class="mobile-nav-link">Certificates</a></li>
-        <li><a href="#endorsements" class="mobile-nav-link">Reviews</a></li>
-        <li><a href="#faq" class="mobile-nav-link">FAQ</a></li>
+        <li><a href="#reviews" class="mobile-nav-link">Reviews</a></li>
         <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
         <li>
           <button class="mobile-theme-btn" id="mobileThemeToggle" aria-label="Toggle theme">
@@ -208,17 +229,17 @@
             <span class="badge-dot"></span>
             Available for opportunities
           </p>
-          <span class="hero-badge" style="margin-bottom: 0; color: #F5EBD0; border-color: rgba(127, 1, 31, 0.55); background: rgba(127, 1, 31, 0.25);">
-            <i class="fas fa-book-open" style="color: #F5EBD0;"></i> Published Researcher <span class="sand-diamond">◆</span> IJIRT (IF 8.412)
+          <span class="hero-badge" style="margin-bottom: 0; color: #E8DEFF; border-color: rgba(91, 61, 245, 0.55); background: rgba(91, 61, 245, 0.25);">
+            <i class="fas fa-book-open" style="color: #E8DEFF;"></i> Published Researcher <span class="sand-diamond">◆</span> IJIRT (IF 8.412)
           </span>
-          <span class="hero-badge" style="margin-bottom: 0; color: #F5EBD0; border-color: rgba(245, 235, 208, 0.35); background: rgba(245, 235, 208, 0.08);">
-            <i class="fas fa-chart-line" style="color: #10b981;"></i> 4+ Years Trader <span class="sand-diamond">◆</span> Stock &amp; Forex
+          <span class="hero-badge" style="margin-bottom: 0; color: #E8DEFF; border-color: rgba(232, 222, 255, 0.35); background: rgba(232, 222, 255, 0.08);">
+            <i class="fas fa-chart-line" style="color: #10b981;"></i> 5 Years Trader <span class="sand-diamond">◆</span> Stock &amp; Forex
           </span>
         </div>
 
         <h1 class="hero-title"><span style="color: var(--accent-sand);">PRATHAMESH</span><br><span class="hero-title-accent" style="color: var(--accent-wine); text-shadow: 0 0 35px var(--accent-wine-glow);">FATANGADE</span></h1>
         <p class="hero-role">M.Sc. Computer Science (Pursuing) &bull; Software Developer &amp; Quantitative Trader</p>
-        <p class="hero-tagline">"Building ideas into digital experiences — from Edge AI robotics and published research to 4+ years of disciplined Indian equity and Forex market trading."</p>
+        <p class="hero-tagline">"Building ideas into digital experiences — from Edge AI robotics and published research to 5 years of disciplined Indian equity and Forex market trading."</p>
         <p class="hero-location">
           <i class="fas fa-map-marker-alt"></i> Maharashtra, India
         </p>
@@ -244,22 +265,22 @@
           <div class="avatar-ring"></div>
           <img src="assets/images/profile.jpg" alt="Prathamesh Fatangade" class="hero-avatar-img">
 
-          <!-- 3D Floating Holographic Badges -->
-          <div class="hero-badge-3d badge-3d-ai">
+          <!-- Floating Badges -->
+          <div class="hero-badge-floating badge-ai">
             <i class="fas fa-robot"></i>
             <div>
               <strong>Edge AI</strong>
               <span>Robotics &amp; CV</span>
             </div>
           </div>
-          <div class="hero-badge-3d badge-3d-trade">
+          <div class="hero-badge-floating badge-trade">
             <i class="fas fa-chart-line"></i>
             <div>
               <strong>4+ Years</strong>
               <span>Stock &amp; Forex</span>
             </div>
           </div>
-          <div class="hero-badge-3d badge-3d-pub">
+          <div class="hero-badge-floating badge-pub">
             <i class="fas fa-award"></i>
             <div>
               <strong>IJIRT</strong>
@@ -398,16 +419,16 @@
             </div>
             <div class="project-info">
               <h3>Personal Portfolio</h3>
-              <p>Wine Red &bull; Light Sand &bull; 3D</p>
+              <p>Raspberry &bull; Pale Sky &bull; Interactive UI</p>
             </div>
             <div class="project-expanded">
-              <h3>Luxury Editorial Developer Portfolio</h3>
-              <p>A bespoke, luxury portfolio designed in Wine Red (#7F011F) &amp; Light Sand (#F5EBD0) with live spotlight search, spring-lerped 3D card physics, dynamic resume generation, and interactive AI agent.</p>
+              <h3>Luxury Cyber Developer Portfolio</h3>
+              <p>A bespoke, luxury portfolio designed in Raspberry (#5B3DF5) &amp; Pale Sky (#E8DEFF) with clean responsive architecture, dynamic resume generation, and interactive AI agent.</p>
               <div class="project-tags">
                 <span class="tag">HTML5 / CSS3</span>
                 <span class="tag">Vanilla JS</span>
-                <span class="tag">Spotlight Search</span>
-                <span class="tag">3D Physics</span>
+                <span class="tag">Responsive UI</span>
+                <span class="tag">Interactive UI</span>
               </div>
               <div class="project-actions">
                 <button class="btn btn-sm btn-primary project-detail-btn" data-project="3">
@@ -436,7 +457,7 @@
 
       <!-- Stat Highlights with Live Radar Beacon & Dynamic Counters -->
       <div class="market-stats-row reveal">
-        <div class="market-stat-tile card-3d">
+        <div class="market-stat-tile">
           <div class="stat-live-beacon" title="Active Market Operations">
             <span class="beacon-dot"></span>
             <span class="beacon-pulse"></span>
@@ -445,15 +466,15 @@
           <div class="stat-val"><span class="stat-counter" data-target="4">4</span><span class="stat-suffix">+</span></div>
           <div class="stat-desc">Years Active Market Experience</div>
         </div>
-        <div class="market-stat-tile card-3d">
+        <div class="market-stat-tile">
           <div class="stat-val"><span class="stat-counter" data-target="2">2</span></div>
           <div class="stat-desc">Core Domains: NSE/BSE &amp; Forex</div>
         </div>
-        <div class="market-stat-tile card-3d">
+        <div class="market-stat-tile">
           <div class="stat-val">1:<span class="stat-counter" data-target="2">2</span>+</div>
           <div class="stat-desc">Risk-to-Reward Execution</div>
         </div>
-        <div class="market-stat-tile card-3d">
+        <div class="market-stat-tile">
           <div class="stat-val"><i class="fas fa-brain brain-pulse-icon"></i></div>
           <div class="stat-desc">Quant &amp; Data-Driven Analytics</div>
         </div>
@@ -551,38 +572,6 @@
             <span class="tag">1:2+ R:R</span>
             <span class="tag">Trade Journaling</span>
             <span class="tag">Psychology</span>
-          </div>
-        </div>
-
-        <!-- Quantitative & FinTech Synergy Card -->
-        <div class="market-card reveal">
-          <div class="market-card-header">
-            <div class="market-icon-box">
-              <i class="fas fa-laptop-code"></i>
-            </div>
-            <div>
-              <h3 class="market-card-title">FinTech &amp; Quantitative Synergy</h3>
-              <p class="market-card-subtitle">Computer Science Meets Market Data</p>
-            </div>
-          </div>
-          <div class="market-card-body">
-            <p style="margin-bottom: 14px;">
-              Leveraging Computer Science expertise to develop automated screening pipelines, backtesting frameworks, and quantitative trackers.
-            </p>
-            <ul class="market-points">
-              <li><i class="fas fa-check-circle"></i> Python scripts for automated historical market data retrieval</li>
-              <li><i class="fas fa-check-circle"></i> Custom technical screener filters for stock breakout setups</li>
-              <li><i class="fas fa-check-circle"></i> Quantitative analysis of drawdowns, Sharpe ratios, and win-loss metrics</li>
-              <li><i class="fas fa-check-circle"></i> Algorithmic rule-based checklists eliminating discretionary cognitive bias</li>
-            </ul>
-          </div>
-          <div class="market-tags">
-            <span class="tag">Python FinTech</span>
-            <span class="tag">Backtesting</span>
-            <span class="tag">Data Analysis</span>
-            <span class="tag">Algo Screening</span>
-            <span class="tag">Automation</span>
-          </div>
         </div>
       </div>
 
@@ -598,151 +587,275 @@
     <!-- ========== SECTION 6: SKILLS & TECHNOLOGY ========== -->
     <section id="skills" class="section">
       <div class="section-header reveal">
-        <h2 class="section-title"><i class="fas fa-code"></i> Skills &amp; Technology</h2>
-        <p class="section-subtitle">Technologies, engineering domains, and financial skills I work with</p>
+        <h2 class="section-title"><i class="fas fa-microchip"></i> Skills &amp; Technology</h2>
+        <p class="section-subtitle">Core engineering disciplines, embedded systems, and financial market competencies</p>
       </div>
 
-      <div class="skills-grid">
-        <!-- Programming -->
-        <div class="skill-category reveal">
-          <h3 class="skill-category-title"><i class="fas fa-terminal"></i> Programming</h3>
-          <div class="skill-items">
-            <div class="skill-item">
-              <i class="fab fa-python"></i>
-              <span>Python</span>
-            </div>
-            <div class="skill-item">
-              <i class="fab fa-js-square"></i>
-              <span>JavaScript</span>
-            </div>
-            <div class="skill-item">
-              <i class="fab fa-php"></i>
-              <span>PHP</span>
-            </div>
+      <!-- Capability Summary Badges -->
+      <div class="skills-highlight-bar reveal">
+        <div class="skills-highlight-item">
+          <div class="highlight-icon"><i class="fas fa-brain"></i></div>
+          <div class="highlight-info">
+            <span class="highlight-label">Edge AI &amp; Robotics</span>
+            <span class="highlight-desc">Published CNNs on Raspberry Pi 4B &bull; IoT Telemetry</span>
           </div>
         </div>
-
-        <!-- Financial Markets & Trading -->
-        <div class="skill-category reveal">
-          <h3 class="skill-category-title"><i class="fas fa-chart-line"></i> Financial Markets</h3>
-          <div class="skill-items">
-            <div class="skill-item">
-              <i class="fas fa-rupee-sign"></i>
-              <span>Indian Stock Market</span>
-            </div>
-            <div class="skill-item">
-              <i class="fas fa-dollar-sign"></i>
-              <span>Forex Trading</span>
-            </div>
-            <div class="skill-item">
-              <i class="fas fa-search-dollar"></i>
-              <span>Technical Analysis</span>
-            </div>
-            <div class="skill-item">
-              <i class="fas fa-shield-alt"></i>
-              <span>Risk Management</span>
-            </div>
-            <div class="skill-item">
-              <i class="fas fa-book"></i>
-              <span>Trade Journaling</span>
-            </div>
+        <div class="skills-highlight-item">
+          <div class="highlight-icon"><i class="fas fa-chart-line"></i></div>
+          <div class="highlight-info">
+            <span class="highlight-label">Quantitative Markets</span>
+            <span class="highlight-desc">4+ Years Live Equities &amp; Forex &bull; 1:2+ R:R Execution</span>
           </div>
         </div>
-
-        <!-- Frontend -->
-        <div class="skill-category reveal">
-          <h3 class="skill-category-title"><i class="fas fa-palette"></i> Frontend</h3>
-          <div class="skill-items">
-            <div class="skill-item">
-              <i class="fab fa-html5"></i>
-              <span>HTML5</span>
-            </div>
-            <div class="skill-item">
-              <i class="fab fa-css3-alt"></i>
-              <span>CSS3</span>
-            </div>
-            <div class="skill-item">
-              <i class="fas fa-mobile-alt"></i>
-              <span>Responsive</span>
-            </div>
+        <div class="skills-highlight-item">
+          <div class="highlight-icon"><i class="fas fa-code"></i></div>
+          <div class="highlight-info">
+            <span class="highlight-label">Software &amp; Web Stack</span>
+            <span class="highlight-desc">Python, Modern JavaScript, PHP &amp; Relational SQL</span>
           </div>
         </div>
+      </div>
 
-        <!-- Backend -->
-        <div class="skill-category reveal">
-          <h3 class="skill-category-title"><i class="fas fa-server"></i> Backend</h3>
-          <div class="skill-items">
-            <div class="skill-item">
-              <i class="fab fa-php"></i>
-              <span>PHP</span>
-            </div>
-            <div class="skill-item">
-              <i class="fas fa-cogs"></i>
-              <span>Server-side</span>
-            </div>
-          </div>
-        </div>
+      <!-- Interactive Domain Filter Bar -->
+      <div class="skills-filter-bar reveal">
+        <button type="button" class="skill-filter-btn active" data-filter="all">
+          <i class="fas fa-th-large"></i> All Domains
+        </button>
+        <button type="button" class="skill-filter-btn" data-filter="ai-robotics">
+          <i class="fas fa-robot"></i> Edge AI &amp; Robotics
+        </button>
+        <button type="button" class="skill-filter-btn" data-filter="programming">
+          <i class="fas fa-terminal"></i> Programming
+        </button>
+        <button type="button" class="skill-filter-btn" data-filter="markets">
+          <i class="fas fa-chart-pie"></i> Financial Markets
+        </button>
+        <button type="button" class="skill-filter-btn" data-filter="web-db">
+          <i class="fas fa-layer-group"></i> Web &amp; Database
+        </button>
+        <button type="button" class="skill-filter-btn" data-filter="tools">
+          <i class="fas fa-tools"></i> Tools &amp; Ecosystem
+        </button>
+      </div>
 
-        <!-- Database -->
-        <div class="skill-category reveal">
-          <h3 class="skill-category-title"><i class="fas fa-database"></i> Database</h3>
-          <div class="skill-items">
-            <div class="skill-item">
-              <i class="fas fa-database"></i>
-              <span>MySQL</span>
-            </div>
-            <div class="skill-item">
-              <i class="fas fa-table"></i>
-              <span>SQL</span>
-            </div>
-          </div>
-        </div>
+      <!-- Modern Redesigned Skills Grid -->
+      <div class="skills-showcase-grid">
 
-        <!-- Tools -->
-        <div class="skill-category reveal">
-          <h3 class="skill-category-title"><i class="fas fa-wrench"></i> Tools</h3>
-          <div class="skill-items">
-            <div class="skill-item">
-              <i class="fas fa-code"></i>
-              <span>VS Code</span>
-            </div>
-            <div class="skill-item">
-              <i class="fab fa-git-alt"></i>
-              <span>Git</span>
-            </div>
-            <div class="skill-item">
-              <i class="fab fa-github"></i>
-              <span>GitHub</span>
-            </div>
-            <div class="skill-item">
-              <i class="fas fa-server"></i>
-              <span>XAMPP</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Emerging Tech & Edge AI -->
-        <div class="skill-category reveal">
-          <h3 class="skill-category-title"><i class="fas fa-rocket"></i> Emerging Tech &amp; AI</h3>
-          <div class="skill-items">
-            <div class="skill-item">
-              <i class="fas fa-brain"></i>
-              <span>AI / ML</span>
-            </div>
-            <div class="skill-item">
-              <i class="fas fa-comments"></i>
-              <span>NLP</span>
-            </div>
-            <div class="skill-item">
-              <i class="fas fa-microchip"></i>
-              <span>Edge AI</span>
-            </div>
-            <div class="skill-item">
+        <!-- Domain 1: Edge AI, Robotics & Embedded Vision -->
+        <article class="skill-showcase-card reveal" data-category="ai-robotics">
+          <div class="card-glow-edge"></div>
+          <div class="skill-card-top">
+            <div class="skill-icon-bubble ai-bubble">
               <i class="fas fa-robot"></i>
-              <span>Raspberry Pi &amp; IoT</span>
+            </div>
+            <div class="skill-header-meta">
+              <span class="skill-card-badge"><i class="fas fa-star"></i> Featured Research</span>
+              <h3 class="skill-card-heading">Edge AI &amp; Robotics</h3>
             </div>
           </div>
-        </div>
+          <p class="skill-card-description">
+            Quantized neural networks, embedded computer vision, and closed-loop IoT sensor telemetry deployed directly onto resource-constrained embedded platforms.
+          </p>
+          <div class="skill-tags-cloud">
+            <div class="tech-pill">
+              <i class="fab fa-raspberry-pi"></i>
+              <div class="pill-text"><strong>Raspberry Pi 4B</strong><span>Hardware / Linux</span></div>
+            </div>
+            <div class="tech-pill">
+              <i class="fas fa-network-wired"></i>
+              <div class="pill-text"><strong>Edge CNNs</strong><span>Quantized Models</span></div>
+            </div>
+            <div class="tech-pill">
+              <i class="fas fa-eye"></i>
+              <div class="pill-text"><strong>OpenCV</strong><span>Computer Vision</span></div>
+            </div>
+            <div class="tech-pill">
+              <i class="fas fa-satellite-dish"></i>
+              <div class="pill-text"><strong>IoT Sensors</strong><span>DHT22 / Moisture</span></div>
+            </div>
+            <div class="tech-pill">
+              <i class="fas fa-tachometer-alt"></i>
+              <div class="pill-text"><strong>PID Control</strong><span>Closed-Loop Motor</span></div>
+            </div>
+            <div class="tech-pill">
+              <i class="fas fa-microchip"></i>
+              <div class="pill-text"><strong>Embedded Linux</strong><span>GPIO / I2C / Serial</span></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Domain 2: Programming Languages & Algorithms -->
+        <article class="skill-showcase-card reveal" data-category="programming">
+          <div class="card-glow-edge"></div>
+          <div class="skill-card-top">
+            <div class="skill-icon-bubble code-bubble">
+              <i class="fas fa-terminal"></i>
+            </div>
+            <div class="skill-header-meta">
+              <span class="skill-card-badge">Core Engineering</span>
+              <h3 class="skill-card-heading">Languages &amp; Core Systems</h3>
+            </div>
+          </div>
+          <p class="skill-card-description">
+            Strong algorithmic problem-solving, clean code design patterns, and asynchronous data transformation across scientific and production codebases.
+          </p>
+          <div class="skill-tags-cloud">
+            <div class="tech-pill">
+              <i class="fab fa-python"></i>
+              <div class="pill-text"><strong>Python 3</strong><span>NumPy &bull; Pandas</span></div>
+            </div>
+            <div class="tech-pill">
+              <i class="fab fa-js-square"></i>
+              <div class="pill-text"><strong>JavaScript (ES6+)</strong><span>Modern DOM &bull; Async</span></div>
+            </div>
+            <div class="tech-pill">
+              <i class="fas fa-code"></i>
+              <div class="pill-text"><strong>C / C++</strong><span>Embedded &bull; Systems</span></div>
+            </div>
+            <div class="tech-pill">
+              <i class="fab fa-php"></i>
+              <div class="pill-text"><strong>PHP</strong><span>Server-side Scripting</span></div>
+            </div>
+            <div class="tech-pill">
+              <i class="fas fa-project-diagram"></i>
+              <div class="pill-text"><strong>Data Structures</strong><span>Complexity Analysis</span></div>
+            </div>
+            <div class="tech-pill">
+              <i class="fas fa-square-root-alt"></i>
+              <div class="pill-text"><strong>Discrete Math</strong><span>Applied Theory</span></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Domain 3: Financial Markets & Quantitative Trading -->
+        <article class="skill-showcase-card reveal" data-category="markets">
+          <div class="card-glow-edge"></div>
+          <div class="skill-card-top">
+            <div class="skill-icon-bubble finance-bubble">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="skill-header-meta">
+              <span class="skill-card-badge market-badge"><i class="fas fa-shield-alt"></i> 4+ Years Live Execution</span>
+              <h3 class="skill-card-heading">Financial Markets &amp; Quant</h3>
+            </div>
+          </div>
+          <p class="skill-card-description">
+            Rigorous Price Action mechanics, Market Structure Shifts (MSS), liquidity sweeps, and mathematical position sizing with asymmetric risk profiles.
+          </p>
+          <div class="skill-tags-cloud">
+            <div class="tech-pill">
+              <i class="fas fa-rupee-sign"></i>
+              <div class="pill-text"><strong>Indian Equities</strong><span>NSE / BSE Breakouts</span></div>
+            </div>
+            <div class="tech-pill">
+              <i class="fas fa-dollar-sign"></i>
+              <div class="pill-text"><strong>Global Forex</strong><span>Major Currency Pairs</span></div>
+            </div>
+            <div class="tech-pill">
+              <i class="fas fa-wave-square"></i>
+              <div class="pill-text"><strong>Price Action &amp; MSS</strong><span>Market Structure</span></div>
+            </div>
+            <div class="tech-pill">
+              <i class="fas fa-magnet"></i>
+              <div class="pill-text"><strong>Liquidity Sweeps</strong><span>Order Flow Dynamics</span></div>
+            </div>
+            <div class="tech-pill">
+              <i class="fas fa-balance-scale"></i>
+              <div class="pill-text"><strong>1:2+ Risk Strategy</strong><span>Drawdown Governance</span></div>
+            </div>
+            <div class="tech-pill">
+              <i class="fas fa-book"></i>
+              <div class="pill-text"><strong>Trade Journaling</strong><span>Quantitative Logging</span></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Domain 4: Web Technologies & Database Systems -->
+        <article class="skill-showcase-card reveal" data-category="web-db">
+          <div class="card-glow-edge"></div>
+          <div class="skill-card-top">
+            <div class="skill-icon-bubble web-bubble">
+              <i class="fas fa-layer-group"></i>
+            </div>
+            <div class="skill-header-meta">
+              <span class="skill-card-badge">Full-Stack &amp; Data</span>
+              <h3 class="skill-card-heading">Web &amp; Database Systems</h3>
+            </div>
+          </div>
+          <p class="skill-card-description">
+            High-performance, accessible client-side interfaces backed by structured relational databases and optimized schema design.
+          </p>
+          <div class="skill-tags-cloud">
+            <div class="tech-pill">
+              <i class="fab fa-html5"></i>
+              <div class="pill-text"><strong>HTML5 Semantic</strong><span>WCAG Accessibility</span></div>
+            </div>
+            <div class="tech-pill">
+              <i class="fab fa-css3-alt"></i>
+              <div class="pill-text"><strong>Modern CSS3</strong><span>Flexbox &bull; Grid &bull; Motion</span></div>
+            </div>
+            <div class="tech-pill">
+              <i class="fas fa-mobile-alt"></i>
+              <div class="pill-text"><strong>Responsive UI/UX</strong><span>Mobile-First Design</span></div>
+            </div>
+            <div class="tech-pill">
+              <i class="fas fa-database"></i>
+              <div class="pill-text"><strong>MySQL Database</strong><span>Relational Modeling</span></div>
+            </div>
+            <div class="tech-pill">
+              <i class="fas fa-table"></i>
+              <div class="pill-text"><strong>SQL Engineering</strong><span>Queries &bull; Joins &bull; Indexes</span></div>
+            </div>
+            <div class="tech-pill">
+              <i class="fas fa-server"></i>
+              <div class="pill-text"><strong>Apache / XAMPP</strong><span>Local Web Host</span></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Domain 5: Developer Tools & Ecosystem -->
+        <article class="skill-showcase-card reveal" data-category="tools">
+          <div class="card-glow-edge"></div>
+          <div class="skill-card-top">
+            <div class="skill-icon-bubble tool-bubble">
+              <i class="fas fa-tools"></i>
+            </div>
+            <div class="skill-header-meta">
+              <span class="skill-card-badge">Workflow &amp; DevOps</span>
+              <h3 class="skill-card-heading">Tools &amp; Ecosystem</h3>
+            </div>
+          </div>
+          <p class="skill-card-description">
+            Collaborative version control, Unix CLI mastery, cloud security foundations, and publication-standard scientific research documentation.
+          </p>
+          <div class="skill-tags-cloud">
+            <div class="tech-pill">
+              <i class="fab fa-git-alt"></i>
+              <div class="pill-text"><strong>Git &amp; GitHub</strong><span>Version Control &bull; CI</span></div>
+            </div>
+            <div class="tech-pill">
+              <i class="fas fa-code"></i>
+              <div class="pill-text"><strong>VS Code</strong><span>Debugging &bull; Workspace</span></div>
+            </div>
+            <div class="tech-pill">
+              <i class="fas fa-terminal"></i>
+              <div class="pill-text"><strong>Linux &amp; Bash</strong><span>Shell Scripting &bull; CLI</span></div>
+            </div>
+            <div class="tech-pill">
+              <i class="fas fa-file-alt"></i>
+              <div class="pill-text"><strong>Research Writing</strong><span>IJIRT &bull; LaTeX &bull; Docs</span></div>
+            </div>
+            <div class="tech-pill">
+              <i class="fas fa-lock"></i>
+              <div class="pill-text"><strong>Cloud Security</strong><span>Simplilearn Certified</span></div>
+            </div>
+            <div class="tech-pill">
+              <i class="fas fa-brain"></i>
+              <div class="pill-text"><strong>Generative AI</strong><span>Outskill LLM Certified</span></div>
+            </div>
+          </div>
+        </article>
+
       </div>
     </section>
 
@@ -756,7 +869,7 @@
       <div class="about-container">
         <div class="about-image reveal">
           <div class="about-avatar-wrapper">
-            <img src="assets/images/profile.jpg" alt="Prathamesh Fatangade" class="about-avatar-img">
+            <img src="assets/images/about-me.jpg" alt="Prathamesh Fatangade" class="about-avatar-img">
           </div>
         </div>
 
@@ -767,7 +880,7 @@
             I'm a curious and driven Computer Science post-graduate student at <strong>MAEER's MIT Arts, Commerce and Science College, Alandi (Pune)</strong>, passionate about transforming theoretical engineering into robust, real-world digital solutions. My academic and practical work spans Edge AI, IoT-driven robotics, full-stack web applications, and data-driven systems.
           </p>
           <p class="about-bio">
-            Alongside technology, I have <strong>4+ years of active, hands-on trading experience in the Indian Stock Market (NSE/BSE) and Global Forex Markets</strong>. I apply a quantitative, disciplined approach centered on technical price action, liquidity dynamics, strict risk-to-reward ratios, and emotional mastery.
+            Alongside technology, I have <strong>5 years of active, hands-on trading experience in the Indian Stock Market (NSE/BSE) and Global Forex Markets</strong>. I apply a quantitative, disciplined approach centered on technical price action, liquidity dynamics, strict risk-to-reward ratios, and emotional mastery.
           </p>
           <p class="about-bio">
             Recently, my co-authored research paper on autonomous agricultural robotics and Edge AI was published in the <em>International Journal of Innovative Research in Technology (IJIRT)</em> with an Impact Factor of 8.412.
@@ -991,7 +1104,37 @@
       </div>
     </section>
 
-    <!-- ========== SECTION 10: CONTACT ========== -->
+    <!-- ========== SECTION 10: VISITOR REVIEWS & FEEDBACK ========== -->
+    <section id="reviews" class="section">
+      <div class="section-header reveal">
+        <h2 class="section-title"><i class="fas fa-star"></i> Reviews &amp; Recommendations</h2>
+        <p class="section-subtitle">Real feedback from visitors, collaborators &amp; peers — share your thoughts below</p>
+      </div>
+
+      <!-- Reviews Stat & Action Banner -->
+      <div class="reviews-action-banner reveal">
+        <div class="reviews-summary-stat">
+          <div class="overall-rating-score" id="overallRatingScore">5.0</div>
+          <div class="overall-rating-meta">
+            <div class="stars-row" id="summaryStarsRow">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <span class="total-reviews-count" id="totalReviewsCount">Based on verified reviews</span>
+          </div>
+        </div>
+
+        <button type="button" class="btn btn-primary" id="openReviewModalBtn">
+          <i class="fas fa-pen"></i> Leave a Review
+        </button>
+      </div>
+
+      <!-- Dynamic Reviews Grid Container -->
+      <div class="visitor-reviews-grid reveal" id="visitorReviewsGrid">
+        <!-- Rendered dynamically by script.js with localStorage persistence -->
+      </div>
+    </section>
+
+    <!-- ========== SECTION 11: CONTACT ========== -->
     <section id="contact" class="section">
       <div class="section-header reveal">
         <h2 class="section-title"><i class="fas fa-paper-plane"></i> Let's Build Something Great</h2>
@@ -1060,120 +1203,8 @@
       </div>
     </section>
 
-    <!-- ========== SECTION 10: ACADEMIC ENDORSEMENTS & REVIEWS ========== -->
-    <section id="endorsements" class="section">
-      <div class="section-header reveal">
-        <h2 class="section-title"><i class="fas fa-quote-left"></i> Endorsements &amp; Academic Reviews</h2>
-        <p class="section-subtitle">Verified feedback from research mentors, academic guides &amp; technical peers</p>
-      </div>
 
-      <div class="endorsements-grid reveal">
-        <!-- Review 1: Research Guide -->
-        <article class="endorsement-card card-3d">
-          <div class="card-3d-glare"></div>
-          <div class="endorsement-rating">
-            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-            <span class="endorsement-badge">Research Guide</span>
-          </div>
-          <blockquote class="endorsement-quote">
-            "Prathamesh demonstrated extraordinary technical diligence and research acumen during the development of the Edge AI-driven agricultural robot. His published paper in IJIRT (IF 8.412) reflects rigorous methodology, seamless hardware-software integration on Raspberry Pi 4B, and deep commitment to applied computer science."
-          </blockquote>
-          <div class="endorsement-author">
-            <div class="author-avatar"><i class="fas fa-user-graduate"></i></div>
-            <div>
-              <h4 class="author-name">Dr. Vaishali Patil</h4>
-              <p class="author-role">Project Guide &amp; Research Mentor &bull; MIT ACSC Pune</p>
-            </div>
-          </div>
-        </article>
-
-        <!-- Review 2: Peer Review / Technical Evaluator -->
-        <article class="endorsement-card card-3d">
-          <div class="card-3d-glare"></div>
-          <div class="endorsement-rating">
-            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-            <span class="endorsement-badge">Market Strategy</span>
-          </div>
-          <blockquote class="endorsement-quote">
-            "His quantitative market framework blends deep Price Action mechanics with disciplined mathematical risk bounds. Maintaining strict 1:2+ risk-to-reward metrics over 4+ years across both volatile Indian Equities and Forex pairs demonstrates remarkable psychological poise and analytical maturity."
-          </blockquote>
-          <div class="endorsement-author">
-            <div class="author-avatar"><i class="fas fa-chart-pie"></i></div>
-            <div>
-              <h4 class="author-name">Quantitative Strategy Review</h4>
-              <p class="author-role">Technical Evaluator &bull; Indian Equities &amp; Forex Group</p>
-            </div>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- ========== SECTION 11: FREQUENTLY ASKED QUESTIONS (FAQ) ========== -->
-    <section id="faq" class="section">
-      <div class="section-header reveal">
-        <h2 class="section-title"><i class="fas fa-question-circle"></i> Frequently Asked Questions</h2>
-        <p class="section-subtitle">Answers regarding research, robotics, algorithmic trading, and collaboration</p>
-      </div>
-
-      <div class="faq-container reveal">
-        <!-- FAQ 1 -->
-        <div class="faq-item card-3d">
-          <button class="faq-question" aria-expanded="false">
-            <span>What are your primary research specializations in Edge AI &amp; Robotics?</span>
-            <i class="fas fa-chevron-down faq-icon"></i>
-          </button>
-          <div class="faq-answer">
-            <p>My core research centers on deploying quantized Convolutional Neural Networks (CNNs) directly onto resource-constrained embedded systems such as the <strong>Raspberry Pi 4B</strong> for real-time inference. My published work in <em>IJIRT (IF 8.412)</em> showcases autonomous agricultural disease surveillance with closed-loop IoT sensor telemetry, bypassing the latency and connectivity constraints of cloud-only systems.</p>
-          </div>
-        </div>
-
-        <!-- FAQ 2 -->
-        <div class="faq-item card-3d">
-          <button class="faq-question" aria-expanded="false">
-            <span>What is your methodology and risk strategy in Indian Equities &amp; Forex?</span>
-            <i class="fas fa-chevron-down faq-icon"></i>
-          </button>
-          <div class="faq-answer">
-            <p>With 4+ years of live market experience across NSE/BSE and major currency pairs, I operate strictly on <strong>Price Action, Liquidity Sweeps, and Market Structure Shifts (MSS)</strong>. Every execution enforces non-negotiable 1:2 to 1:3+ Risk-to-Reward parameters, automated drawdown caps, and position sizing calibrated through custom Python backtesting routines.</p>
-          </div>
-        </div>
-
-        <!-- FAQ 3 -->
-        <div class="faq-item card-3d">
-          <button class="faq-question" aria-expanded="false">
-            <span>Where can I verify your published IJIRT research paper and credentials?</span>
-            <i class="fas fa-chevron-down faq-icon"></i>
-          </button>
-          <div class="faq-answer">
-            <p>The paper is officially indexed in the <em>International Journal of Innovative Research in Technology (IJIRT)</em>, Volume 13, Issue 5, October 2026 under Registration ID <code>209192</code> with an Impact Factor of <code>8.412</code> and ISSN <code>2349-6002</code>. The verified publication certificate and full abstract are inspectable in the <a href="#research" style="color: var(--accent-sand); text-decoration: underline;">Research section</a> of this portfolio.</p>
-          </div>
-        </div>
-
-        <!-- FAQ 4 -->
-        <div class="faq-item card-3d">
-          <button class="faq-question" aria-expanded="false">
-            <span>What degree program are you pursuing and what is your academic coursework?</span>
-            <i class="fas fa-chevron-down faq-icon"></i>
-          </button>
-          <div class="faq-answer">
-            <p>I am pursuing an <strong>M.Sc. in Computer Science</strong> at MAEER’s MIT Arts, Commerce and Science College (MIT ACSC), Alandi (D), Pune. My coursework spans Advanced Python, NoSQL Databases, Web Technologies, Discrete Mathematics, Research Methodology, and Cloud Security.</p>
-          </div>
-        </div>
-
-        <!-- FAQ 5 -->
-        <div class="faq-item card-3d">
-          <button class="faq-question" aria-expanded="false">
-            <span>How can I reach out for research collaboration, consulting, or technical roles?</span>
-            <i class="fas fa-chevron-down faq-icon"></i>
-          </button>
-          <div class="faq-answer">
-            <p>You can send a message directly through the <a href="#contact" style="color: var(--accent-sand); text-decoration: underline;">Contact Form</a>, email me directly at <a href="mailto:fatangadeprathamesh@gmail.com" style="color: var(--accent-sand); text-decoration: underline;">fatangadeprathamesh@gmail.com</a>, or explore repositories and submit issues on <a href="https://github.com/fatangadeprathamesh-svg" target="_blank" rel="noopener noreferrer" style="color: var(--accent-sand); text-decoration: underline;">GitHub</a>.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========== SECTION 12: CINEMATIC ENDING ========== -->
+    <!-- ========== SECTION 11: CINEMATIC ENDING ========== -->
     <section id="ending" class="ending">
       <div class="ending-glow"></div>
       <div class="ending-content reveal">
@@ -1209,6 +1240,87 @@
     <div class="modal-content">
       <button class="modal-close" id="modalClose" aria-label="Close modal">&times;</button>
       <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- ========== VISITOR REVIEW MODAL ========== -->
+  <div id="reviewModal" class="modal" role="dialog" aria-hidden="true" aria-modal="true" aria-labelledby="reviewModalHeading">
+    <div class="modal-backdrop" id="reviewModalBackdrop"></div>
+    <div class="modal-content review-modal-content">
+      <button class="modal-close" id="reviewModalClose" aria-label="Close review modal">&times;</button>
+      
+      <div class="review-modal-header">
+        <div class="review-modal-icon"><i class="fas fa-star"></i></div>
+        <div>
+          <h3 id="reviewModalHeading" class="review-modal-title">Leave a Review</h3>
+          <p class="review-modal-subtitle">Share your feedback, recommendation, or experience with Prathamesh.</p>
+        </div>
+      </div>
+
+      <form id="visitorReviewForm" class="review-form" novalidate>
+        <!-- Star Rating Picker -->
+        <div class="review-form-group">
+          <label class="review-form-label">Rating <span class="required">*</span></label>
+          <div class="interactive-star-rating" id="reviewStarPicker" role="radiogroup" aria-label="Rating from 1 to 5 stars">
+            <button type="button" class="star-btn" data-value="1" aria-label="1 star"><i class="fas fa-star"></i></button>
+            <button type="button" class="star-btn" data-value="2" aria-label="2 stars"><i class="fas fa-star"></i></button>
+            <button type="button" class="star-btn" data-value="3" aria-label="3 stars"><i class="fas fa-star"></i></button>
+            <button type="button" class="star-btn" data-value="4" aria-label="4 stars"><i class="fas fa-star"></i></button>
+            <button type="button" class="star-btn active" data-value="5" aria-label="5 stars"><i class="fas fa-star"></i></button>
+          </div>
+          <span class="star-rating-hint" id="selectedRatingText">5.0 - Outstanding</span>
+          <input type="hidden" id="reviewRatingInput" value="5">
+        </div>
+
+        <div class="review-form-row">
+          <!-- Name Input -->
+          <div class="review-form-group">
+            <label for="reviewAuthorName" class="review-form-label">Your Name <span class="required">*</span></label>
+            <input type="text" id="reviewAuthorName" class="review-input" placeholder="e.g. Alex Morgan" required autocomplete="name">
+            <p class="form-error" id="reviewNameError" style="display:none;">Please enter your name.</p>
+          </div>
+
+          <!-- Role / Affiliation Input -->
+          <div class="review-form-group">
+            <label for="reviewAuthorRole" class="review-form-label">Role or Company <span class="required">*</span></label>
+            <input type="text" id="reviewAuthorRole" class="review-input" placeholder="e.g. Tech Lead @ FinTech / Student / Recruiter" required>
+            <p class="form-error" id="reviewRoleError" style="display:none;">Please specify your role or organization.</p>
+          </div>
+        </div>
+
+        <!-- Domain / Context Selection -->
+        <div class="review-form-group">
+          <label for="reviewCategory" class="review-form-label">Category / Area of Interaction</label>
+          <select id="reviewCategory" class="review-input review-select">
+            <option value="General & Portfolio" selected>General &amp; Portfolio Experience</option>
+            <option value="Edge AI & Robotics">Edge AI &amp; Robotics Research</option>
+            <option value="Quantitative Trading & Markets">Quantitative Trading &amp; Financial Markets</option>
+            <option value="Full-Stack Web Engineering">Full-Stack Web Engineering</option>
+            <option value="Peer & Academic Collaboration">Peer &amp; Academic Collaboration</option>
+          </select>
+        </div>
+
+        <!-- Review Comment -->
+        <div class="review-form-group">
+          <label for="reviewCommentText" class="review-form-label">Your Review &amp; Feedback <span class="required">*</span></label>
+          <textarea id="reviewCommentText" class="review-input review-textarea" rows="4" placeholder="Write your genuine feedback, impression, or recommendation..." required></textarea>
+          <p class="form-error" id="reviewCommentError" style="display:none;">Please write a short review (at least 10 characters).</p>
+        </div>
+
+        <!-- Success Alert Message (Hidden initially) -->
+        <div class="review-alert-success" id="reviewSuccessAlert" style="display:none;" role="status">
+          <i class="fas fa-check-circle"></i>
+          <span>Thank you! Your review has been submitted and published to the portfolio.</span>
+        </div>
+
+        <!-- Modal Actions -->
+        <div class="review-modal-actions">
+          <button type="button" class="btn btn-outline" id="reviewModalCancelBtn">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="reviewSubmitBtn">
+            <i class="fas fa-paper-plane"></i> Publish Review
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 

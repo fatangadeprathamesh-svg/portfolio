@@ -55,9 +55,9 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
       title: "Personal Portfolio Website — Luxury Cyber Edition",
-      subtitle: "HTML5 &bull; CSS3 &bull; Vanilla JS &bull; Raspberry &bull; Pale Sky",
+      subtitle: "HTML5 &bull; CSS3 &bull; Vanilla JS &bull; Wine Red &bull; Light Sand",
       tags: ["HTML5", "CSS3", "JavaScript", "Responsive UI", "3D Physics", "AI Chatbot"],
-      description: "A bespoke developer portfolio designed around Raspberry (#5B3DF5) and Pale Sky (#E8DEFF) aesthetics. Features interactive categorized domain filtering, spring-lerped 3D card tilt physics, 3D canvas cosmic particle tunnel, dynamic printable resume generator, and an integrated interactive AI portfolio assistant.",
+      description: "A bespoke developer portfolio designed around Wine Red (#7F011F) and Light Sand (#F5EBD0) aesthetics. Features interactive categorized domain filtering, spring-lerped 3D card tilt physics, 3D canvas cosmic particle tunnel, dynamic printable resume generator, and an integrated interactive AI portfolio assistant.",
       features: [
         "Zero external JS framework dependencies — 100% pure vanilla performance",
         "Interactive domain filtering categorizing Edge AI, systems, and quant skills",
@@ -262,7 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
         y: (Math.random() - 0.5) * height * 1.6,
         z: Math.random() * 850 + 40,
         radius: Math.random() * 2.2 + 0.8,
-        color: Math.random() > 0.45 ? '#5B3DF5' : (Math.random() > 0.5 ? '#E8DEFF' : '#FFFFFF'),
+        color: Math.random() > 0.45 ? '#7F011F' : (Math.random() > 0.5 ? '#F5EBD0' : '#FFFFFF'),
         speed: Math.random() * 2.6 + 1.2
       }));
 
@@ -317,7 +317,7 @@ document.addEventListener('DOMContentLoaded', () => {
               ctx.beginPath();
               ctx.moveTo(projected[i].px, projected[i].py);
               ctx.lineTo(projected[j].px, projected[j].py);
-              ctx.strokeStyle = '#E8DEFF';
+              ctx.strokeStyle = '#F5EBD0';
               ctx.globalAlpha = (1 - dist / 65) * 0.16 * Math.min(projected[i].alpha, projected[j].alpha);
               ctx.lineWidth = 0.7;
               ctx.stroke();
@@ -780,7 +780,7 @@ document.addEventListener('DOMContentLoaded', () => {
     openResearchAbstractBtn.addEventListener('click', () => {
       modalBody.innerHTML = `
         <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px;">
-          <span style="background: rgba(91, 61, 245, 0.18); color: #E8DEFF; border: 1px solid rgba(91, 61, 245, 0.45); padding: 4px 12px; border-radius: 16px; font-size: 0.78rem; font-weight: 700;">
+          <span style="background: rgba(127, 1, 31, 0.18); color: #F5EBD0; border: 1px solid rgba(127, 1, 31, 0.45); padding: 4px 12px; border-radius: 16px; font-size: 0.78rem; font-weight: 700;">
             <i class="fas fa-award"></i> IJIRT Peer-Reviewed Journal
           </span>
           <span style="background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); padding: 4px 12px; border-radius: 16px; font-size: 0.78rem; font-weight: 600;">
@@ -1019,7 +1019,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <li><strong>Smart Agriculture Robot with Edge AI:</strong> Published Raspberry Pi 4B rover with Edge AI leaf disease recognition &amp; IoT sensors (IJIRT IF 8.412).</li>
           <li><strong>Quantitative Trading Backtester &amp; Risk Engine:</strong> Python quantitative engine testing Price Action, Market Structure Shifts (MSS), and strict 1:2+ R:R capital protection.</li>
           <li><strong>Autonomous Object Following Robot:</strong> Computer-vision robotic rover using Raspberry Pi 4B and OpenCV with closed-loop PID velocity modulation.</li>
-          <li><strong>Personal Developer Portfolio — Luxury Cyber Edition:</strong> Bespoke portfolio designed in Raspberry (#5B3DF5) &amp; Pale Sky (#E8DEFF) with 3D card physics and this interactive AI assistant.</li>
+          <li><strong>Personal Developer Portfolio — Luxury Cyber Edition:</strong> Bespoke portfolio designed in Wine Red (#7F011F) &amp; Light Sand (#F5EBD0) with 3D card physics and this interactive AI assistant.</li>
         </ul>
         <div class="chat-actions-row">
           <a href="#projects" class="chat-action-btn" onclick="toggleChatbot(false)"><i class="fas fa-laptop-code"></i> Explore Projects</a>
@@ -1047,7 +1047,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return `
         <p>📬 <strong>Get in Touch with Prathamesh:</strong></p>
         <ul>
-          <li><strong>Email:</strong> <a href="mailto:fatangadeprathamesh@gmail.com" style="color: var(--accent-sand, #E8DEFF); text-decoration: underline;">fatangadeprathamesh@gmail.com</a></li>
+          <li><strong>Email:</strong> <a href="mailto:fatangadeprathamesh@gmail.com" style="color: var(--accent-sand, #F5EBD0); text-decoration: underline;">fatangadeprathamesh@gmail.com</a></li>
           <li><strong>GitHub:</strong> <a href="https://github.com/fatangadeprathamesh-svg" target="_blank" rel="noopener noreferrer" style="color: #60a5fa; text-decoration: underline;">github.com/fatangadeprathamesh-svg</a></li>
           <li><strong>Location:</strong> Maharashtra, India</li>
         </ul>
